@@ -1,4 +1,5 @@
 {
+  "proxy": "http://localhost:4000",
   "name": "nextjs",
   "version": "0.1.0",
   "private": true,
@@ -22,6 +23,7 @@
     "react-calendar": "^4.2.1",
     "react-dom": "18.2.0",
     "react-gradient": "^1.0.2",
+    "react-router-dom": "^6.14.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
     "styled-components": "^5.3.10",

@@ -1,63 +1,38 @@
-import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { useLogout } from '../hooks/useLogout'
+import { useAuthContext } from "../hooks/useAuthContext"
 
+const Navbar = () => {
+    const { logout } = useLogout()
+    const { user } = useAuthContext()
 
-
-
-
-
-export default class Navbar extends Component {
-
-
-
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
-    render() {
-
-
-        return (
-
-
-            <Menu secondary stackable style={{fontFamily: 'Whisper', fontSize:"30px", padding:"10px", marginRight:"20px", marginLeft:"20px" , borderBottom:"solid 1px",color:"white"}} >
-                <Menu.Item
-                    name='Menu'
-                    style={{color:"white"}}
-                    onClick={this.handleItemClick}
-                    href={"../menu"}
-
-
-                >
-                    Menu
-                </Menu.Item>
-
-                <Menu.Item
-                    name='Reserver'
-                    style={{color:"white"}}
-                    onClick={this.handleItemClick}
-                    position={"right"}
-                    href={"../reserver"}
-                >
-                    Réserver
-                </Menu.Item>
-
-                <Menu.Item
-                    name='Se connecter'
-                    style={{color:"white"}}
-
-                    onClick={this.handleItemClick}
-                    href={"../connexion"}
-                >
-                    Se connecter
-
-                </Menu.Item>
-            </Menu>
-        )
+    const handleClick = () => {
+        logout()
     }
 
+    return (
+        <header>
+
+            <div className='container'>
+                <a href="/">
+                    <h1>Menu</h1>
+                </a>
+                <nav>
+                    {user && (
+                        <div>
+                            <span>{user.email}</span>
+                            <button onClick={handleClick}>Log out</button>
+                        </div>
+                    )}
+                    {!user && (
+                        <div>
+                            <a href="/Login">Login</a>
+                            <a href="/Signup">Signup</a>
+                        </div>
+                    )}
+                </nav>
+            </div>
+        </header>
+    )
 }
 
-
-
-
-
-
+export default Navbar
