@@ -1,7 +1,9 @@
 import React from 'react';
 import '../styles/globals.css'; // Import du fichier CSS global
 import App from 'next/app';
+
 import { AuthContextProvider } from './context/AuthContext';
+
 
 
 class MyApp extends App {
@@ -10,8 +12,7 @@ class MyApp extends App {
         return (
             <AuthContextProvider>
                 <Component {...pageProps} />
-                </AuthContextProvider>
-
+            </AuthContextProvider>
         );
     }
 }

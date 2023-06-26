@@ -1,5 +1,6 @@
 import { useLogout } from '../hooks/useLogout'
 import { useAuthContext } from "../hooks/useAuthContext"
+import Link from 'next/link';
 
 const Navbar = () => {
     const { logout } = useLogout()
@@ -13,9 +14,9 @@ const Navbar = () => {
         <header>
 
             <div className='container'>
-                <a href="/">
+                <Link href="/">
                     <h1>Menu</h1>
-                </a>
+                </Link>
                 <nav>
                     {user && (
                         <div>
@@ -25,8 +26,8 @@ const Navbar = () => {
                     )}
                     {!user && (
                         <div>
-                            <a href="/Login">Login</a>
-                            <a href="/Signup">Signup</a>
+                            <Link href="/Login">Login</Link>
+                            <Link href="/Signup">Signup</Link>
                         </div>
                     )}
                 </nav>
