@@ -1,0 +1,22 @@
+.Fond
+{
+    margin-top:500px;
+    padding:10px;
+    text-align: center;
+    background:linear-gradient(#12121900,#121219FF);
+}
+
+.inverseFond
+{
+    text-align: center;
+    background:linear-gradient(#121219FF,#12121900);
+}
+
+.leftFond
+{
+    text-align: center;
+    background:linear-gradient(to left, #121219FF,#12121900);
+}
+
+
+
