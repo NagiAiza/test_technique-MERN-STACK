@@ -30,11 +30,8 @@ export default function Home() {
                     <hr style={{marginBottom:"10px", marginRight:'40%', marginLeft:"40%"}}/>
                 </div>
                 <Section/>
-                <hr style={{marginTop:"100px", marginBottom:"20px", marginRight:'2%', marginLeft:"2%"}}/>
-                <div style={{margin:"0", padding:"0",top:"0", backgroundImage:"url('/endpage1.png')",backgroundSize: "cover",minHeight:"100vh",height: "auto",}}>
-                    <div className="inverseFond">
-                        <BlurCard/>
-                    </div>
+                <div style={{height:"10px"}}>
+
                 </div>
 
 

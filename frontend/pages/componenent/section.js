@@ -13,6 +13,7 @@ const Section = () => {
             textAlign: 'center',
             marginBottom: '50px',
             boxShadow: 'inset 4px 4px 4px rgba(0, 0, 0, 0.25)',
+
         }}>
             <Segment className={styles.segment}  style={{backgroundColor: '#FFFFFF00', border:'None'}}>
                 <p style={{fontFamily: 'Whisper', fontSize: '30px', color: 'white', marginTop:"20px" }}>Une adresse d’exception</p>
