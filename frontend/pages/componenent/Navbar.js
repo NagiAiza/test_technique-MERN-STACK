@@ -73,6 +73,10 @@ const Navbar = () => {
                 </Menu.Item>
 
                 )}
+                {user && (
+                    <span>{user.email}</span>,
+                    <button onClick={handleClick}>Log out</button>
+                )}
 
 
 
