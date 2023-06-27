@@ -5,6 +5,7 @@ import Section from "./componenent/section.js"
 import BlurCard from "./componenent/BlurCard.js"
 
 
+
 export default function Home() {
     return (
         <>

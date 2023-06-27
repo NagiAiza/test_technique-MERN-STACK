@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import {useRouter} from "next/router";
 
 export const useSignup = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
+    const router = useRouter()
 
     const signup = async (email, password) => {
         setIsLoading(true)
@@ -29,9 +31,9 @@ export const useSignup = () => {
             dispatch({ type: 'LOGIN', payload: json })
 
             setIsLoading(false)
+
+            await router.push('/') // Rediriger vers la page '/'
         }
     }
-
-
     return { signup, isLoading, error }
 }

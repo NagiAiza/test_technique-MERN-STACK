@@ -11,9 +11,11 @@ const Signup = () => {
         e.preventDefault() //evite de recharger la page apres avoir appuyer sur le bouton
         await signup(email, password)
     }
+
+
     return (
         <div style={{justifyContent:"center", alignItems:"center"}}>
-        <form style={{backgroundColor:"#FFFFFFA4", borderRadius:"20px", width:"auto", padding:"5%", display:"inline-grid",margin:"auto", justifyContent:"center", alignItems:"center"}}className="signup" onSubmit={handleSubmit}>
+        <form style={{backgroundColor:"#FFFFFFA4", borderRadius:"20px", width:"auto", padding:"5%", display:"inline-grid",margin:"auto", justifyContent:"center", alignItems:"center"}} className="signup" onSubmit={handleSubmit}>
 
             <h3>Sign up</h3>
 

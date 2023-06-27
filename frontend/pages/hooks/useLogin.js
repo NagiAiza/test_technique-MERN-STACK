@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import { useRouter } from 'next/router'
 
 export const useLogin = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
+    const router = useRouter()
 
     const login = async (email, password) => {
         setIsLoading(true)
@@ -21,6 +23,7 @@ export const useLogin = () => {
         if (!response.ok) {
             setIsLoading(false)
             setError(json.error)
+
         }
         if (response.ok) {
             // save the user to local storage
@@ -30,6 +33,7 @@ export const useLogin = () => {
             dispatch({ type: 'LOGIN', payload: json })
 
             setIsLoading(false)
+            await router.push('/') // Rediriger vers la page '/'
         }
     }
 
