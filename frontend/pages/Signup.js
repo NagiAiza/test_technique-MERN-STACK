@@ -12,7 +12,9 @@ const Signup = () => {
         await signup(email, password)
     }
     return (
-        <form className="signup" onSubmit={handleSubmit}>
+        <div style={{justifyContent:"center", alignItems:"center"}}>
+        <form style={{backgroundColor:"#FFFFFFA4", borderRadius:"20px", width:"auto", padding:"5%", display:"inline-grid",margin:"auto", justifyContent:"center", alignItems:"center"}}className="signup" onSubmit={handleSubmit}>
+
             <h3>Sign up</h3>
 
             <label>Email:</label>
@@ -28,9 +30,10 @@ const Signup = () => {
                 value={password}
             />
 
-            <button disabled={isLoading}>Sign Up</button>
+            <button  disabled={isLoading}>Sign Up</button>
             {error && <div className="error">{error}</div>}
         </form>
+            </div>
     )
 }
 

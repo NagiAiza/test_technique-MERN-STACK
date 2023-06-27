@@ -13,7 +13,7 @@ const Login = () => {
         await login(email, password)
     }
     return (
-        <form className="login" onSubmit={handleSubmit}>
+        <form style={{backgroundColor:"#FFFFFFA4", borderRadius:"20px", width:"auto", padding:"5%", display:"inline-grid",margin:"auto", justifyContent:"center", alignItems:"center"}} className="login" onSubmit={handleSubmit}>
             <h3>Log In</h3>
 
             <label>Email:</label>
@@ -29,7 +29,7 @@ const Login = () => {
                 value={password}
             />
 
-            <button disabled={isLoading}>log in</button>
+            <button href={"./"} disabled={isLoading}>log in</button>
             {error && <div className="error">{error}</div>}
         </form>
     )
