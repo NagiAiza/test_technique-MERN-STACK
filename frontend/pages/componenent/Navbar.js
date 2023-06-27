@@ -74,8 +74,18 @@ const Navbar = () => {
 
                 )}
                 {user && (
-                    <span>{user.email}</span>,
-                    <button onClick={handleClick}>Log out</button>
+                    <Menu.Item
+                        name='Se connecter'
+                        style={{color:"white"}}
+
+                        onClick={handleClick}
+
+                    >
+
+                        Log out
+
+                    </Menu.Item>
+
                 )}
 
 
