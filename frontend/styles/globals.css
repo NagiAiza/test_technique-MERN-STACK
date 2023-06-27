@@ -20,3 +20,31 @@
 
 
 
+.reservation{
+
+    margin:5%;
+    width:90%;
+    justify-content: center;
+}
+
+.title {
+    color: white;
+    font-family: Whisper;
+
+    font-size: 32px;
+}
+@media (max-width: 768px) {
+    .title {
+        font-size: 22px;
+    }
+
+}
+
+@media (max-width: 426px) {
+    .title {
+        font-size: 18px;
+    }
+
+}
+
+

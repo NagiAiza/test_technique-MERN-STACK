@@ -20,14 +20,14 @@ export default function Home() {
                     <p style={{color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px"}}>MENU</p>
                 </Divider>
 
-                <div>
-                    <p style={{marginTop:"40px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px", textAlign:"center"}}>ENTRÉE</p>
-                    <p style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px", textAlign:"center"}}>.</p>
-                    <p style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px", textAlign:"center"}}>PLAT</p>
-                    <p style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px", textAlign:"center"}}>.</p>
-                    <p style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px", textAlign:"center"}}>DESSERT</p>
-                    <p style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px", textAlign:"center"}}>.</p>
-                    <p style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px", textAlign:"center"}}>VINS</p>
+                <div style={{textAlign : "center", marginTop: "5%"}}>
+                    <a href={"./entree"} style={{marginTop:"40px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px"}}>ENTRÉE</a>
+                    <p style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px"}}>.</p>
+                    <a href={"./plat"} style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px"}}>PLAT</a>
+                    <p style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px"}}>.</p>
+                    <a href={"./dessert"} style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px"}}>DESSERT</a>
+                    <p style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px"}}>.</p>
+                    <a href={"./vins"} style={{marginTop:"10px",color:"White",fontFamily:"Whisper",fontStyle: "Regular", fontSize:"32px"}}>VINS</a>
                 </div>
             </div>
             </main>

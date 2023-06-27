@@ -1,0 +1,25 @@
+.react-calendar {
+    width: 90%;
+
+    max-width: 100%;
+    background-color: #FFFFFFA0;
+    color: #222;
+    border-radius: 8px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.125em;
+}
+
+@media (max-width: 426px) {
+    .react-calendar {
+        width: 100%;
+
+        max-width: 100%;
+        background-color: #FFFFFFA0;
+        color: #222;
+        border-radius: 8px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.125em;
+    }
+}
