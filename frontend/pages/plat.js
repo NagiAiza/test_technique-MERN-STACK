@@ -43,7 +43,8 @@ export default function Home() {
                         <p style={{ color: "White", fontFamily: "Whisper", fontStyle: "Regular", fontSize: "32px" }}>PLAT</p>
                     </Divider>
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-                        {meals.map(meal => (
+                         {meals.map(meal => meal.ordre === 2 && (
+
                             <div
 
                                 key={meal._id}
@@ -56,7 +57,9 @@ export default function Home() {
                                         <p>{meal.description}</p>
                                     </div>
                                 )}
+
                             </div>
+
                         ))}
                     </div>
                 </div>
