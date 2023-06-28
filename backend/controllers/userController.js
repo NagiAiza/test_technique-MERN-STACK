@@ -39,4 +39,26 @@ const signupUser = async (req, res) => {
     }
 }
 
-module.exports = { signupUser, loginUser }
+const getUsers = async (req, res) => {
+    const users = await User.find({ "role": "Customer" }).sort({ "_id": 1 })
+
+    res.status(200).json(users)
+}
+
+const deleteUser = async (req, res) => {
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        res.status(404).json({ error: 'No such user' })
+    }
+    // il faudra penser a supprimer les reservations en meme temps
+    const user = await User.findOneAndDelete({ _id: id })
+
+    if (!user) {
+        res.status(404).json({ error: 'No such workout' })
+    }
+
+    res.status(200).json(user)
+}
+
+module.exports = { signupUser, loginUser, getUsers, deleteUser }
