@@ -9,7 +9,7 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault() //evite de recharger la page apres avoir appuyer sur le bouton
-        await signup(email, password)
+        await signup(email, password, 'Customer')
     }
 
 

@@ -13,11 +13,16 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    role: {
+        type: String,
+        enum: ["Admin", "Customer"],
+        required: true
+    },
 })
 
 // static signup method
-userSchema.statics.signup = async function (email, password) {
+userSchema.statics.signup = async function (email, password, role = "Admin") {
 
     //validation
     if (!email || !password) {
@@ -36,10 +41,15 @@ userSchema.statics.signup = async function (email, password) {
         throw Error('Email already in use')
     }
 
-    const salt = await bcrypt.genSalt(10)
-    const hash = await bcrypt.hash(password, salt)
+    let hash = password
 
-    const user = await this.create({ email, password: hash })
+    if(role === 'Customer'){
+        console.log('ici')
+        const salt = await bcrypt.genSalt(10)
+        hash = await bcrypt.hash(password, salt)
+    }
+
+    const user = await this.create({ email, password: hash, role })
 
     return user
 }
@@ -56,7 +66,15 @@ userSchema.statics.login = async function (email, password) {
         throw Error('Incorrect Email')
     }
 
-    const match = await bcrypt.compare(password, user.password)
+    let match = false
+
+    if(user.role === 'Customer'){
+        match = await bcrypt.compare(password, user.password)
+    } else {
+        if(user.password === password) {
+            match = true
+        }
+    }
 
     if(!match) {
         throw Error('Incorrect password')
