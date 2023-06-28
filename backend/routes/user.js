@@ -15,13 +15,15 @@ router.post('/signup', signupUser)
 router.get('/', getUsers)
 
 //GET a single user
-router.get('/:id', getUser)
+// router.get('/:id', getUser)
+router.get('/:email', getUser)
 
 //delet one user
 router.delete('/:id', deleteUser)
 
 // Route pour le téléchargement d'image
 router.post('/upload', uploadImage)
+
 
 
 

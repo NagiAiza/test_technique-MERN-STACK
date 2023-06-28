@@ -75,7 +75,18 @@ const Navbar = () => {
                 )}
                 {user && (
                     <Menu.Item
-                        name='Se connecter'
+                        name='espacePerso'
+                        style={{color:"white"}}
+                        href={"/espacePerso"}
+                    >
+
+                        Mon Compte
+                    </Menu.Item>
+
+                )}
+                {user && (
+                    <Menu.Item
+                        name='Se Deconnecter'
                         style={{color:"white"}}
 
                         onClick={handleClick}

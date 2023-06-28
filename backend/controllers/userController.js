@@ -61,21 +61,26 @@ const getUsers = async (req, res) => {
 
 //get one users
 const getUser = async (req, res) => {
-    const { id } = req.params
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.status(404).json({ error: 'No such User' })
-    }
-
-    const user = await User.findById(id)
-
+    // const { id } = req.params
+    //
+    // if (!mongoose.Types.ObjectId.isValid(id)) {
+    //     res.status(404).json({ error: 'No such User' })
+    // }
+    //
+    // const user = await User.findById(id)
+    //
+    // if (!user) {
+    //     res.status(404).json({ error: 'No such user' })
+    // }
+    //
+    // res.status(200).json(user)
+    const {email} = req.params
+    const user = await User.findOne({ email }); // Recherchez un utilisateur dans la collection "users" en utilisant l'adresse e-mail
     if (!user) {
         res.status(404).json({ error: 'No such user' })
     }
-
     res.status(200).json(user)
 }
-
 
 const deleteUser = async (req, res) => {
     const { id } = req.params
@@ -106,4 +111,5 @@ const uploadImage = (req, res) => {
 }
 
 
-module.exports = { signupUser, loginUser, getUsers, getUser, deleteUser, uploadImage  }
+
+module.exports = { signupUser, loginUser, getUsers, getUser, deleteUser, uploadImage }

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useSignup } from "./hooks/useSignup"
+import Navbar from "@/pages/componenent/Navbar";
 
 
 const Signup = () => {
@@ -17,6 +18,8 @@ const Signup = () => {
 
 
     return (
+        <>
+            <Navbar/>
         <div style={{justifyContent:"center", alignItems:"center"}}>
         <form style={{backgroundColor:"#FFFFFFA4", borderRadius:"20px", width:"auto", padding:"5%", display:"inline-grid",margin:"auto", justifyContent:"center", alignItems:"center"}} className="signup" onSubmit={handleSubmit}>
 
@@ -56,6 +59,7 @@ const Signup = () => {
             {error && <div className="error">{error}</div>}
         </form>
             </div>
+        </>
     )
 }
 
