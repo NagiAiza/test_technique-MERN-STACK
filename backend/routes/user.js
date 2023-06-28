@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { signupUser, loginUser, deleteUser, getUsers } = require('../controllers/userController')
+const { signupUser, loginUser, deleteUser, getUsers, getUser, uploadImage } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -14,7 +14,15 @@ router.post('/signup', signupUser)
 //get all users !admin
 router.get('/', getUsers)
 
+//GET a single user
+router.get('/:id', getUser)
+
 //delet one user
 router.delete('/:id', deleteUser)
+
+// Route pour le téléchargement d'image
+router.post('/upload', uploadImage)
+
+
 
 module.exports = router

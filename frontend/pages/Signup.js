@@ -4,12 +4,15 @@ import { useSignup } from "./hooks/useSignup"
 
 const Signup = () => {
     const [email, setEmail] = useState('')
+    const [prenom, setPrenom] = useState('')
+    const [nom, setNom] = useState('')
     const [password, setPassword] = useState('')
+    const [image, setImage] = useState(null);
     const {signup, error, isLoading} = useSignup()
 
     const handleSubmit = async (e) => {
         e.preventDefault() //evite de recharger la page apres avoir appuyer sur le bouton
-        await signup(email, password, 'Customer')
+        await signup(email, password, 'Customer', prenom, nom, image)
     }
 
 
@@ -25,11 +28,28 @@ const Signup = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
             />
+            <label>Prenom:</label>
+            <input
+                type="prenom"
+                onChange={(e) => setPrenom(e.target.value)}
+                value={prenom}
+            />
+            <label>Nom:</label>
+            <input
+                type="nom"
+                onChange={(e) => setNom(e.target.value)}
+                value={nom}
+            />
             <label>Password:</label>
             <input
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
+            />
+            <label>Image:</label>
+            <input
+                type="file"
+                onChange={(e) => setImage(e.target.files[0])}
             />
 
             <button  disabled={isLoading}>Sign Up</button>

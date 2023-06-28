@@ -19,13 +19,22 @@ const userSchema = new Schema({
         enum: ["Admin", "Customer"],
         required: true
     },
+    prenom: {
+        type: String
+    },
+    nom: {
+        type: String
+    },
+    image: {
+        type: String
+    }
 })
 
 // static signup method
-userSchema.statics.signup = async function (email, password, role = 'Admin') {
+userSchema.statics.signup = async function (email, password, role = 'Admin', prenom, nom, image) {
 
     //validation
-    if (!email || !password) {
+    if (!email || !password || !image) {
         throw Error('All fields must be filled')
     }
     if (!validator.isEmail(email)) {
@@ -48,7 +57,7 @@ userSchema.statics.signup = async function (email, password, role = 'Admin') {
         hash = await bcrypt.hash(password, salt)
     }
 
-    const user = await this.create({ email, password: hash, role })
+    const user = await this.create({ email, password: hash, role, prenom, nom, image })
 
     return user
 }
