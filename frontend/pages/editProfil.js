@@ -31,13 +31,13 @@ const EditProfile = () => {
                     <label>Prenom:</label>
                     <input
                         type="prenom"
-                        onChange={(e) => {setPrenom(e.target.value), setPMod(true)}}
+                        onChange={(e) => {setPrenom(e.target.value); setPMod(true);}}
                         value={prenom ? prenom : (fname && !pMod ? fname : '')}
                     />
                     <label>Nom:</label>
                     <input
                         type="nom"
-                        onChange={(e) => {setNom(e.target.value), setNMod(true)}}
+                        onChange={(e) => {setNom(e.target.value); setNMod(true);}}
                         value={nom ? nom : (name && !nMod ? name : '')}
                     />
 
