@@ -22,7 +22,7 @@ const userSchema = new Schema({
 })
 
 // static signup method
-userSchema.statics.signup = async function (email, password, role = "Admin") {
+userSchema.statics.signup = async function (email, password, role = 'Admin') {
 
     //validation
     if (!email || !password) {
@@ -44,7 +44,6 @@ userSchema.statics.signup = async function (email, password, role = "Admin") {
     let hash = password
 
     if(role === 'Customer'){
-        console.log('ici')
         const salt = await bcrypt.genSalt(10)
         hash = await bcrypt.hash(password, salt)
     }

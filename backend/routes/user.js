@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { signupUser, loginUser } = require('../controllers/userController')
+const { signupUser, loginUser, deleteUser, getUsers } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -10,5 +10,11 @@ router.post('/login', loginUser)
 
 //signup route
 router.post('/signup', signupUser)
+
+//get all users !admin
+router.get('/', getUsers)
+
+//delet one user
+router.delete('/:id', deleteUser)
 
 module.exports = router
