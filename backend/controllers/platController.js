@@ -1,4 +1,4 @@
-const Meal = require('../models/mealModel');
+const Meal = require('../models/PlatModel');
 const mongoose = require('mongoose');
 
 // Obtenir tous les plats
@@ -26,15 +26,15 @@ const getMeal = async (req, res) => {
 
 // Créer un nouveau plat
 const createMeal = async (req, res) => {
-    const { title, description, price } = req.body;
+    const { title, description, ordre } = req.body;
 
     // Validation des champs obligatoires
-    if (!title || !price) {
+    if (!title || !ordre) {
         return res.status(400).json({ error: 'Please provide title and price' });
     }
 
     try {
-        const meal = await Meal.create({ title, description, price });
+        const meal = await Meal.create({ title, description, ordre });
         res.status(200).json(meal);
     } catch (error) {
         res.status(500).json({ error: 'Failed to create meal' });
