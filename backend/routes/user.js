@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { signupUser, loginUser, deleteUser, getUsers, getUser, uploadImage } = require('../controllers/userController')
+const { signupUser, loginUser, deleteUser, getUsers, getUser, uploadImage, uploadUser } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -25,6 +25,6 @@ router.delete('/:id', deleteUser)
 router.post('/upload', uploadImage)
 
 
-
+router.patch('/:id', uploadUser)
 
 module.exports = router

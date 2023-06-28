@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { useAuthContext } from "./hooks/useAuthContext"
 import Navbar from "@/pages/componenent/Navbar";
 
+
+
 const MonCompte = () => {
     const {user} = useAuthContext()
     const [userData, setUserData] = useState(null);
@@ -37,6 +39,7 @@ const MonCompte = () => {
                     style={{ width: "200px", height: "200px" }}
                 />
             )}
+            <a href={`/editProfil?id=${userData?._id}&fname=${userData?.prenom}&name=${userData?.nom}`}>Modifier le profil</a>
         </div>
         </>
     )

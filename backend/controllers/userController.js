@@ -110,6 +110,15 @@ const uploadImage = (req, res) => {
     })
 }
 
+const uploadUser = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
+    if(!user){
+        res.status(400).json({ error: "No user found" })
+    }
+    res.status(200).json(user)
+}
 
 
-module.exports = { signupUser, loginUser, getUsers, getUser, deleteUser, uploadImage }
+
+module.exports = { signupUser, loginUser, getUsers, getUser, deleteUser, uploadImage, uploadUser }
