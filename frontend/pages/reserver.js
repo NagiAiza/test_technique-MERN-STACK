@@ -42,7 +42,7 @@ export default function Home() {
                     <Divider horizontal style={{marginTop: "100px", marginLeft: "10px", marginRight: "10px"}}>
                         <p className="title">Faire Une Réservation</p>
                     </Divider>
-                    <div className="reservation" style={{}}>
+                    <div className="reservation" >
                     <div style={{margin:0}}>
                     <Calendar
                         onChange={handleDateChange}

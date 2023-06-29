@@ -8,10 +8,9 @@ const Reservation = () => {
     };
 
     const timeSlots = [
-        '12:00 AM - 1:00 PM',
-        '1:00 PM - 2:00 PM',
-        '2:00 PM - 3:00 PM',
-        '3:00 PM - 4:00 PM',
+        'Midi',
+        'Soir',
+
     ];
 
     return (
