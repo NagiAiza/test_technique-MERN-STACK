@@ -3,7 +3,6 @@ import { useAuthContext } from "../hooks/useAuthContext"
 import { Menu } from 'semantic-ui-react'
 import React from 'react'
 
-
 const Navbar = () => {
 
 
@@ -73,7 +72,7 @@ const Navbar = () => {
                 </Menu.Item>
 
                 )}
-                {user && (
+                {user && user.role === 'Customer' && (
                     <Menu.Item
                         name='espacePerso'
                         style={{color:"white"}}
@@ -81,6 +80,17 @@ const Navbar = () => {
                     >
 
                         Mon Compte
+                    </Menu.Item>
+
+                )}
+                {user && user.role === 'Admin' && (
+                    <Menu.Item
+                        name='clients'
+                        style={{color:"white"}}
+                        href={"/clients"}
+                    >
+
+                        Clients
                     </Menu.Item>
 
                 )}
