@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuthContext } from "@/pages/hooks/useAuthContext";
 
 export default function Home() {
-    const { user } = useAuthContext();
+    const {user} = useAuthContext();
     const [selectedMeal, setSelectedMeal] = useState(null);
     const [meals, setMeals] = useState([]);
     const [changement, setChangement] = useState(null);
@@ -131,7 +131,7 @@ export default function Home() {
                                         <p>{meal.description}</p>
                                     </div>
                                 )}
-                                {user && (
+                                {user && user.role === "Admin" && (
                                     <div style={{ textAlign: 'center' }}>
                                         <button
                                             style={{

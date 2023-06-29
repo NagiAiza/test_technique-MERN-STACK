@@ -131,7 +131,7 @@ export default function Home() {
                                         <p>{meal.description}</p>
                                     </div>
                                 )}
-                                {user && (
+                                {user && user.role === "Admin" && (
                                     <div style={{ textAlign: 'center' }}>
                                         <button
                                             style={{
