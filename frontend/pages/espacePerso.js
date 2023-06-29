@@ -36,38 +36,38 @@ const MonCompte = () => {
             </Head>
             <main>
                 <div>
-                    <Menu secondary stackable style={{fontFamily: 'Whisper', fontSize:"30px", padding:"10px", marginRight:"20px", marginLeft:"20px" , borderBottom:"solid 1px",color:"white"}} >
+        <Menu secondary stackable style={{fontFamily: 'Whisper', fontSize:"30px", padding:"10px", marginRight:"20px", marginLeft:"20px" , borderBottom:"solid 1px",color:"white"}} >
 
-                        <Menu.Item
-                            name='Acceuil'
-                            style={{color:"white"}}
+            <Menu.Item
+                name='Acceuil'
+                style={{color:"white", textDecoration:"none",marginLeft:"1%"}}
 
-                            href={"../"}
-
-
-                        >
-                            Accueil
-                        </Menu.Item>
-                        <Menu.Item
-                            name='Menu'
-                            style={{color:"white"}}
-
-                            href={"../menu"}
-                            position={"right"}
-
-                        >
-                            Menu
-                        </Menu.Item>
-                        <Menu.Item
-                            name='Reserver'
-                            style={{color:"white"}}
+                href={"../"}
 
 
-                            href={"../reserver"}
-                        >
-                            Réserver
-                        </Menu.Item>
-                    </Menu>
+            >
+                Accueil
+            </Menu.Item>
+            <Menu.Item
+                name='Menu'
+                style={{color:"white", textDecoration:"none",marginLeft:"1%"}}
+
+                href={"../menu"}
+                position={"right"}
+
+            >
+                Menu
+            </Menu.Item>
+            <Menu.Item
+                name='Reserver'
+                style={{color:"white", textDecoration:"none",marginLeft:"1%"}}
+
+
+                href={"../reserver"}
+            >
+                Réserver
+            </Menu.Item>
+        </Menu>
         <div className="home">
             <h1 style={{textAlign:"center", color:"white"}}>Espace Perso</h1>
             <p style={{textAlign:"center",color:"white"}}><strong>Prenom: </strong>{userData?.prenom}</p>
