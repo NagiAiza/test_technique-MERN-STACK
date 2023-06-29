@@ -3,16 +3,16 @@ import 'semantic-ui-css/semantic.min.css';
 import Navbar from "./componenent/Navbar";
 import { Divider } from "semantic-ui-react";
 import React, { useEffect, useState } from 'react';
+import { useAuthContext } from "@/pages/hooks/useAuthContext";
 
 export default function Home() {
+    const { user } = useAuthContext();
     const [selectedMeal, setSelectedMeal] = useState(null);
     const [meals, setMeals] = useState([]);
-
-
+    const [changement, setChangement] = useState(null);
 
     const handleClick = (meal) => {
         if (meal) {
-
             // Traitez l'événement de clic ici (ex: affichage des détails du plat)
             console.log(meal);
             if (selectedMeal === null) {
@@ -22,6 +22,27 @@ export default function Home() {
             }
         }
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        // Effectuez une requête HTTP PUT vers votre API pour mettre à jour le plat
+        fetch('/api/plat/meals/'+changement._id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(changement),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Plat mis à jour:', data);
+                setChangement(null);
+                window.location.reload(); // Rechargement de la page
+
+            })
+            .catch(error => console.error(error));
+    };
+
     useEffect(() => {
         // Effectuez une requête HTTP GET à votre API pour récupérer tous les plats
         fetch('/api/plat/meals')
@@ -29,6 +50,14 @@ export default function Home() {
             .then(data => setMeals(data))
             .catch(error => console.error(error));
     }, []);
+
+    const handleClick1 = (meal) => {
+        if (changement === null) {
+            setChangement(meal);
+        } else {
+            setChangement(null);
+        }
+    };
 
     return (
         <>
@@ -41,26 +70,89 @@ export default function Home() {
                 <div>
                     <Navbar />
                     <Divider horizontal style={{ marginTop: "10px", marginLeft: "10px", marginRight: "10px", lineHeight: "30px" }}>
-                        <p style={{ color: "White", fontFamily: "Whisper", fontStyle: "Regular", fontSize: "32px" }}>VINS</p>
+                        <p style={{ color: "White", fontFamily: "Whisper", fontStyle: "Regular", fontSize: "32px" }}>Vins</p>
                     </Divider>
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-                        {meals.map(meal => meal.ordre === 4 &&(
-
+                    <div style={{ marginBottom: "10px", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+                        {meals.map(meal => meal.ordre === 4 && (
                             <div
-
                                 key={meal._id}
-                                style={{ textAlign: 'center', marginTop: '3%', backgroundColor:"#FFFFFF0F", color : "white", fontSize : "24px", width : "80%", height : "80%", borderRadius : "30px", padding : "1%", justifyContent : "center",}}
+                                style={{
+                                    textAlign: 'center',
+                                    marginTop: '3%',
+                                    backgroundColor: "#FFFFFF0F",
+                                    color: "white",
+                                    fontSize: "24px",
+                                    width: "80%",
+                                    height: "80%",
+                                    borderRadius: "30px",
+                                    padding: "1%",
+                                    justifyContent: "center",
+                                }}
                                 onClick={() => handleClick(meal)}
                             >
-                                <p style={{ color: 'White', fontFamily: 'Whisper', fontStyle: 'Regular', fontSize: '32px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>{meal.title}</p>
-                                {selectedMeal && selectedMeal._id === meal._id && (
+                                {changement && changement._id === meal._id && (
+                                    <form onSubmit={handleSubmit} style={{
+                                        borderRadius: "20px",
+                                        width: "auto",
+                                        padding: "5%",
+                                        display: "inline-grid",
+                                        margin: "auto",
+                                        justifyContent: "center",
+                                        alignItems: "center"
+                                    }}>
+                                        <h1>Changement de {meal.title} :</h1>
+                                        <label>Plat :</label>
+                                        <input
+                                            type="text"
+                                            value={changement.title}
+                                            onChange={(e) => setChangement({ ...changement, title: e.target.value })}
+                                        />
+                                        <label>Description :</label>
+                                        <input
+                                            type="text"
+                                            value={changement.description}
+                                            onChange={(e) => setChangement({ ...changement, description: e.target.value })}
+                                        />
+                                        <button type="submit">Modifier</button>
+                                    </form>
+                                )}
+                                <p style={{
+                                    color: 'White',
+                                    fontFamily: 'Whisper',
+                                    fontStyle: 'Regular',
+                                    fontSize: '32px',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    flexDirection: 'column'
+                                }}>{meal.title}</p>
+                                {!changement && selectedMeal && selectedMeal._id === meal._id && (
                                     <div style={{ textAlign: 'center' }}>
                                         <p>{meal.description}</p>
                                     </div>
                                 )}
-
+                                {user && (
+                                    <div style={{ textAlign: 'center' }}>
+                                        <button
+                                            style={{
+                                                marginBottom: "10px",
+                                                marginTop: "20px",
+                                                fontFamily: "Whisper",
+                                                fontSize: "30px",
+                                                color: "white",
+                                                backgroundColor: "transparent",
+                                                borderStyle: "none",
+                                                padding: "15px",
+                                                borderTop: "solid white",
+                                                borderBottom: "solid white"
+                                            }}
+                                            onClick={() => handleClick1(meal)}
+                                        >
+                                            Changer
+                                        </button>
+                                    </div>
+                                )}
                             </div>
-
                         ))}
                     </div>
                 </div>
@@ -68,4 +160,3 @@ export default function Home() {
         </>
     );
 }
-
