@@ -68,7 +68,7 @@ const MonCompte = () => {
                 Réserver
             </Menu.Item>
         </Menu>
-        <div className="home">
+        <div style={{margin:"1%",textAlign:"center",}} className="home">
             <h1 style={{textAlign:"center", color:"white"}}>Espace Perso</h1>
             <p style={{textAlign:"center",color:"white"}}><strong>Prenom: </strong>{userData?.prenom}</p>
             <p style={{textAlign:"center",color:"white"}}><strong>Nom: </strong>{userData?.nom}</p>

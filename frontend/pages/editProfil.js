@@ -63,7 +63,7 @@ const EditProfile = () => {
                             Réserver
                         </Menu.Item>
                     </Menu>
-            <div style={{justifyContent:"center", alignItems:"center"}}>
+            <div style={{justifyContent:"center", alignItems:"center",margin:"1%"}}>
                 <form style={{backgroundColor:"#FFFFFFA4", borderRadius:"20px", width:"auto", padding:"5%", display:"inline-grid",margin:"auto", justifyContent:"center", alignItems:"center"}} className="signup" onSubmit={handleSubmit}>
 
                     <h3>Modification des informations</h3>
