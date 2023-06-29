@@ -34,6 +34,29 @@
 
     font-size: 32px;
 }
+
+.formulaire
+{
+    display:flex;
+    margin:1%;
+
+    width: auto;
+
+
+    border-radius: 10px;
+}
+
+@media (max-width: 1025px) {
+    .formulaire
+    {
+        display:block;
+        margin:1%;
+        gap:1%;
+        width: auto;
+
+    }
+}
+
 @media (max-width: 768px) {
     .title {
         font-size: 22px;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Link } from 'next/link';
 const Reservation = () => {
     const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
 
@@ -56,9 +56,10 @@ const Reservation = () => {
                 margin: '5px',
                 borderRadius: '5px',
                 cursor: 'pointer',
+                textDecoration:"none",
             }}
                 >
-            Reserver
+            <a style={{color:"white"}} href="../Choix">Reserver</a>
                 </button>
                 </div>
 
