@@ -5,16 +5,10 @@ import { Divider } from "semantic-ui-react";
 import React, { useEffect, useState } from 'react';
 
 export default function Home() {
-    const [meals, setMeals] = useState([]);
     const [selectedMeal, setSelectedMeal] = useState(null);
+    const [meals, setMeals] = useState([]);
 
-    useEffect(() => {
-        // Effectuez une requête HTTP GET à votre API pour récupérer tous les plats
-        fetch('/api/plat/meals')
-            .then(response => response.json())
-            .then(data => setMeals(data))
-            .catch(error => console.error(error));
-    }, []);
+
 
     const handleClick = (meal) => {
         if (meal) {
@@ -28,6 +22,13 @@ export default function Home() {
             }
         }
     };
+    useEffect(() => {
+        // Effectuez une requête HTTP GET à votre API pour récupérer tous les plats
+        fetch('/api/plat/meals')
+            .then(response => response.json())
+            .then(data => setMeals(data))
+            .catch(error => console.error(error));
+    }, []);
 
     return (
         <>
