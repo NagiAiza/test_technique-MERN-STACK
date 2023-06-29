@@ -4,6 +4,7 @@ const express = require('express')
 const userRoutes = require('./routes/user')
 const mongoose = require('mongoose')
 const platRoutes = require('./routes/plat')
+const reservationRoutes = require('./routes/reservation')
 // express app
 const app = express()
 
@@ -18,6 +19,8 @@ app.use((req, res, next) => {
 // routes
 app.use('/api/user', userRoutes)
 app.use('/api/plat',  platRoutes)
+app.use('/api/reservation', reservationRoutes)
+
 // Ajoutez cette ligne avant la définition des routes
 app.use('/images', express.static('images'));
 

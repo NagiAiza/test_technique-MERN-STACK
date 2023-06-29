@@ -5,7 +5,6 @@ import { Divider } from 'semantic-ui-react';
 import Calendar from 'react-calendar';
 import { useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
-import { format } from 'date-fns';
 import styles from '../styles/calendar.module.css';
 import Reservation from './componenent/horaire.js'
 
