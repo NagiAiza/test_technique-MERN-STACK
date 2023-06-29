@@ -2,7 +2,7 @@ import Head from 'next/head'
 import 'semantic-ui-css/semantic.min.css'
 import Navbar from "./componenent/Navbar.js"
 import Section from "./componenent/section.js"
-import BlurCard from "./componenent/BlurCard.js"
+
 
 
 

@@ -1,8 +1,8 @@
 import { useLogout } from '../hooks/useLogout'
 import { useAuthContext } from "../hooks/useAuthContext"
 import { Menu } from 'semantic-ui-react'
-import React, { Component } from 'react'
-import Link from 'next/link';
+import React from 'react'
+
 
 const Navbar = () => {
 

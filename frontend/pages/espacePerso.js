@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useAuthContext } from "./hooks/useAuthContext"
-import Navbar from "@/pages/componenent/Navbar";
+import { Menu } from 'semantic-ui-react'
+import Head from "next/head";
+
 
 
 
@@ -27,11 +29,49 @@ const MonCompte = () => {
     //manque la liste de reservation
     return (
         <>
-        <Navbar/>
+            <Head>
+                <title>Create Next App</title>
+                <meta name="description" content="Généré par create next app" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </Head>
+            <main>
+                <div>
+                    <Menu secondary stackable style={{fontFamily: 'Whisper', fontSize:"30px", padding:"10px", marginRight:"20px", marginLeft:"20px" , borderBottom:"solid 1px",color:"white"}} >
+
+                        <Menu.Item
+                            name='Acceuil'
+                            style={{color:"white"}}
+
+                            href={"../"}
+
+
+                        >
+                            Accueil
+                        </Menu.Item>
+                        <Menu.Item
+                            name='Menu'
+                            style={{color:"white"}}
+
+                            href={"../menu"}
+                            position={"right"}
+
+                        >
+                            Menu
+                        </Menu.Item>
+                        <Menu.Item
+                            name='Reserver'
+                            style={{color:"white"}}
+
+
+                            href={"../reserver"}
+                        >
+                            Réserver
+                        </Menu.Item>
+                    </Menu>
         <div className="home">
-            <h1 style={{color:"white"}}>Espace Perso</h1>
-            <p style={{color:"white"}}><strong>Prenom: </strong>{userData?.prenom}</p>
-            <p style={{color:"white"}}><strong>Nom: </strong>{userData?.nom}</p>
+            <h1 style={{textAlign:"center", color:"white"}}>Espace Perso</h1>
+            <p style={{textAlign:"center",color:"white"}}><strong>Prenom: </strong>{userData?.prenom}</p>
+            <p style={{textAlign:"center",color:"white"}}><strong>Nom: </strong>{userData?.nom}</p>
             {userData?.image && (
                 <img
                     src={`http://localhost:4000/${userData.image}`}
@@ -39,8 +79,13 @@ const MonCompte = () => {
                     style={{ width: "200px", height: "200px" }}
                 />
             )}
-            <a href={`/editProfil?id=${userData?._id}&fname=${userData?.prenom}&name=${userData?.nom}`}>Modifier le profil</a>
+            <h3 style={{textAlign:"center"}}>
+             <a style={{textAlign:"center",color:"white", textDecoration:"none"}} href={`/editProfil?id=${userData?._id}&fname=${userData?.prenom}&name=${userData?.nom}`}>Modifier le profil</a>
+            </h3>
         </div>
+
+                </div>
+            </main>
         </>
     )
 }

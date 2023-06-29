@@ -93,27 +93,34 @@ export default function Home() {
                                 {changement && changement._id === meal._id && (
                                     <form onSubmit={handleSubmit} style={{
                                         borderRadius: "20px",
-                                        width: "auto",
-                                        padding: "5%",
-                                        display: "inline-grid",
+
+                                        padding: "3%",
+                                        display: "grid",
+                                        gridTemplateColumns: "1fr",
+                                        gap: "10px",
                                         margin: "auto",
                                         justifyContent: "center",
-                                        alignItems: "center"
+                                        alignItems: "center",
+
+
+
                                     }}>
-                                        <h1>Changement de {meal.title} :</h1>
-                                        <label>Plat :</label>
+                                        <h2>Changement de {meal.title} :</h2>
+                                        <label >Plat :</label>
                                         <input
+                                            style={{marginLeft:"10%", maxWidth:"80%",  justifyContent: "center", alignItems: "center", textAlign:"center"}}
                                             type="text"
                                             value={changement.title}
                                             onChange={(e) => setChangement({ ...changement, title: e.target.value })}
                                         />
                                         <label>Description :</label>
                                         <input
+                                            style={{marginLeft:"10%", maxWidth:"80%",  justifyContent: "center", alignItems: "center", textAlign:"center"}}
                                             type="text"
                                             value={changement.description}
                                             onChange={(e) => setChangement({ ...changement, description: e.target.value })}
                                         />
-                                        <button type="submit">Modifier</button>
+                                        <button    style={{marginLeft:"10%", maxWidth:"80%",  justifyContent: "center", alignItems: "center", textAlign:"center"}} type="submit">Modifier</button>
                                     </form>
                                 )}
                                 <p style={{
