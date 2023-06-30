@@ -78,8 +78,8 @@ const Choix = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const bottlesData = formulaires.map((formulaire, index) => ({
-            vin: formulaire.selection.vins,
+        const bottlesData = plats.filter((plat) => plat.ordre === 4).map((vin, index) => ({
+            vin: vin.title,
             quantity: nbVins[index] || 0,
         }));
 
@@ -123,7 +123,7 @@ const Choix = () => {
                 <h1>Vins</h1>
                 {plats.filter((plat) => plat.ordre === 4).map((vin, index) => (
                     <div style={{margin:"30px"}}>
-                    <form key={vin._id} style={{ display: 'inline-grid' }}>
+                    <form id={vin._id} key={vin._id} style={{ display: 'inline-grid' }}>
                         <h3>{vin.title}</h3>
 
                         <label htmlFor={`nbVins-${index}`}>Nombre de vins :</label>
