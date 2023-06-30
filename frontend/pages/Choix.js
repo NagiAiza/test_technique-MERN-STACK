@@ -59,7 +59,7 @@ const Choix = () => {
         formulaires.map((formulaire) => (
             <div key={formulaire.id} style={styles.formulaire}>
                 <h3>{formulaire.id}</h3>
-                <form>
+                <form style={{display: "inline-grid"}} >
                     <label htmlFor={`entree-${formulaire.id}`}> entrée : </label>
                     <select
                         id={`entree-${formulaire.id}`}
@@ -134,7 +134,15 @@ const styles = {
         alignItems: 'center',
     },
     button: {
-        marginTop: '10px',
+        margin: '50px',
+        backgroundColor: 'transparent',
+        color: 'white',
+        border: '1px solid #d4a713',
+        padding: '10px',
+
+        borderRadius: '5px',
+        cursor: 'pointer',
+        textDecoration: 'none',
     },
     formulaires: {
         display: 'flex',
@@ -143,13 +151,15 @@ const styles = {
     },
     formulaire: {
         backgroundColor: '#FFFFFF0F',
-        margin: '1%',
-        padding: '1%',
+        margin: '30px',
+        padding: '10px',
         borderRadius: '20px',
         textAlign: 'center',
     },
     select: {
-        width: '200px',
+        margin: '3%',
+        padding: '1%',
+        width: 'auto',
     },
 };
 
