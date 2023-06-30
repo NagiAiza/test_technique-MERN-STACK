@@ -5,6 +5,7 @@ import Navbar from "./componenent/Navbar";
 import Head from "next/head";
 
 const Choix = () => {
+
     const { user } = useAuthContext(); // J'ai besoin de l'ID ici
     const router = useRouter();
     const { date, creneau, nombre } = router.query;
