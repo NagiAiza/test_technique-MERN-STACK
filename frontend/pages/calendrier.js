@@ -75,7 +75,14 @@ const Calendrier = () => {
                         });
 
                         return (
-                            <div style={{ color: "white" }} key={reservation._id}>
+                            <div style={{
+                                borderRadius: "20px",
+                                padding: "1%",
+                                margin:"1%",
+                                color:"white",
+                                backgroundColor:"#FFFFFF0F",
+
+                            }} key={reservation._id}>
                                 <strong>Date :</strong> {formattedDate}
                                 <br />
                                 <strong>Nom du client :</strong> {userName}
