@@ -3,8 +3,9 @@ import { useRouter } from 'next/router';
 import { useAuthContext } from "./hooks/useAuthContext";
 import Navbar from "./componenent/Navbar";
 import Head from "next/head";
+
 const Choix = () => {
-    const { user } = useAuthContext(); // Il me faut l'id
+    const { user } = useAuthContext(); // J'ai besoin de l'ID ici
     const router = useRouter();
     const { date, creneau, nombre } = router.query;
 
@@ -31,13 +32,11 @@ const Choix = () => {
                 const data = await response.json();
                 setPlats(data);
             } catch (error) {
-                console.error('Erreur lors de la récupération des plats:', error);
+                console.error('Erreur lors de la récupération des plats :', error);
             }
         };
 
-
         fetchPlats();
-
     }, [nombre]);
 
     const handleChange = (e, index, field) => {
@@ -74,21 +73,22 @@ const Choix = () => {
         }
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const bottlesData = plats.filter((plat) => plat.ordre === 4).map((vin, index) => ({
-            vin: vin.title,
-            quantity: nbVins[index] || 0,
-        }));
+        const bottlesData = plats
+            .filter((plat) => plat.ordre === 4)
+            .map((vin, index) => ({
+                vin: vin.title,
+                quantity: nbVins[index] || 0,
+            }));
 
         const formData = {
             userId: user.id,
-            date: date, // Replace selectedDate with the actual selected date
-            timeSlot: creneau, // Replace selectedTimeSlot with the actual selected time slot
-            numberOfPeople: nombre, // Replace nombre with the actual number of people
-            menus: formulaires.map((formulaire) => formulaire.selection), // Extract the selection from each formulaire
+            date: date, // Remplacez selectedDate par la date réellement sélectionnée
+            timeSlot: creneau, // Remplacez selectedTimeSlot par la plage horaire réellement sélectionnée
+            numberOfPeople: nombre, // Remplacez nombre par le nombre réel de personnes
+            menus: formulaires.map((formulaire) => formulaire.selection), // Extrait la sélection de chaque formulaire
             bottles: bottlesData,
             totalPrice: 50,
         };
@@ -103,15 +103,15 @@ const Choix = () => {
             });
 
             if (response.ok) {
-                console.log('Reservation data sent to MongoDB successfully');
-                // Handle success, such as displaying a success message or redirecting to a confirmation page
+                console.log('Données de réservation envoyées avec succès à MongoDB');
+                // Gérer le succès, comme l'affichage d'un message de réussite ou la redirection vers une page de confirmation
             } else {
-                console.error('Failed to send reservation data to MongoDB');
-                // Handle failure, such as displaying an error message or retrying the request
+                console.error("Échec de l'envoi des données de réservation à MongoDB");
+                // Gérer l'échec, comme l'affichage d'un message d'erreur ou la nouvelle tentative de la requête
             }
         } catch (error) {
-            console.error('Error while sending reservation data:', error);
-            // Handle error, such as displaying an error message or retrying the request
+            console.error('Erreur lors de l\'envoi des données de réservation :', error);
+            // Gérer l'erreur, comme l'affichage d'un message d'erreur ou la nouvelle tentative de la requête
         }
 
         router.push('/');
@@ -121,33 +121,36 @@ const Choix = () => {
         return (
             <div style={styles.formulaire}>
                 <h1>Vins</h1>
-                {plats.filter((plat) => plat.ordre === 4).map((vin, index) => (
-                    <div style={{margin:"30px"}}>
-                    <form id={vin._id} key={vin._id} style={{ display: 'inline-grid' }}>
-                        <h3>{vin.title}</h3>
+                {plats
+                    .filter((plat) => plat.ordre === 4)
+                    .map((vin, index) => (
+                        <div key={vin._id} style={{ margin: '30px' }}>
+                            <form id={vin._id} key={vin._id} style={{ display: 'inline-grid' }}>
+                                <h3>{vin.title}</h3>
 
-                        <label htmlFor={`nbVins-${index}`}>Nombre de vins :</label>
-                        <input
-                            id={`nbVins-${index}`}
-                            onChange={(e) => handleChange(e, index + 1, 'nbVins')}
-                            min={0}
-                            max={5}
-                            type="number"
-                            style={{ marginBottom: '10px' }}
-                            value={nbVins[index] || ''}
-                        />
-                    </form>
-                    </div>
-                ))}
+                                <label htmlFor={`nbVins-${index}`}>Nombre de vins :</label>
+                                <input
+                                    id={`nbVins-${index}`}
+                                    onChange={(e) => handleChange(e, index + 1, 'nbVins')}
+                                    min={0}
+                                    max={5}
+                                    type="number"
+                                    style={{ marginBottom: '10px' }}
+                                    value={nbVins[index] || ''}
+                                />
+                            </form>
+                        </div>
+                    ))}
             </div>
         );
     };
+
     const genererFormulaires = () =>
         formulaires.map((formulaire) => (
             <div key={formulaire.id} style={styles.formulaire}>
                 <h3>{formulaire.id}</h3>
                 <form style={{ display: 'inline-grid' }}>
-                    <label htmlFor={`entree-${formulaire.id}`}>Entrée:</label>
+                    <label htmlFor={`entree-${formulaire.id}`}>Entrée :</label>
                     <select
                         id={`entree-${formulaire.id}`}
                         onChange={(e) => handleChange(e, formulaire.id, 'entree')}
@@ -155,14 +158,16 @@ const Choix = () => {
                         value={formulaire.selection.entree}
                     >
                         <option value="">Sélectionnez un plat</option>
-                        {plats.filter((plat) => plat.ordre === 1).map((plat) => (
-                            <option key={plat._id} value={plat._id}>
-                                {plat.title}
-                            </option>
-                        ))}
+                        {plats
+                            .filter((plat) => plat.ordre === 1)
+                            .map((plat) => (
+                                <option key={plat._id} value={plat._id}>
+                                    {plat.title}
+                                </option>
+                            ))}
                     </select>
 
-                    <label htmlFor={`plat-${formulaire.id}`}>Plat:</label>
+                    <label htmlFor={`plat-${formulaire.id}`}>Plat :</label>
                     <select
                         id={`plat-${formulaire.id}`}
                         onChange={(e) => handleChange(e, formulaire.id, 'plat')}
@@ -170,14 +175,16 @@ const Choix = () => {
                         value={formulaire.selection.plat}
                     >
                         <option value="">Sélectionnez un plat</option>
-                        {plats.filter((plat) => plat.ordre === 2).map((plat) => (
-                            <option key={plat._id} value={plat._id}>
-                                {plat.title}
-                            </option>
-                        ))}
+                        {plats
+                            .filter((plat) => plat.ordre === 2)
+                            .map((plat) => (
+                                <option key={plat._id} value={plat._id}>
+                                    {plat.title}
+                                </option>
+                            ))}
                     </select>
 
-                    <label htmlFor={`dessert-${formulaire.id}`}>Dessert:</label>
+                    <label htmlFor={`dessert-${formulaire.id}`}>Dessert :</label>
                     <select
                         id={`dessert-${formulaire.id}`}
                         onChange={(e) => handleChange(e, formulaire.id, 'dessert')}
@@ -185,11 +192,13 @@ const Choix = () => {
                         value={formulaire.selection.dessert}
                     >
                         <option value="">Sélectionnez un plat</option>
-                        {plats.filter((plat) => plat.ordre === 3).map((plat) => (
-                            <option key={plat._id} value={plat._id}>
-                                {plat.title}
-                            </option>
-                        ))}
+                        {plats
+                            .filter((plat) => plat.ordre === 3)
+                            .map((plat) => (
+                                <option key={plat._id} value={plat._id}>
+                                    {plat.title}
+                                </option>
+                            ))}
                     </select>
                 </form>
             </div>
@@ -202,27 +211,21 @@ const Choix = () => {
                 <meta name="description" content="Generated by create next app" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
-        <main>
-            <div
-            >
-                <Navbar/>
-        <div style={styles.container}>
-            <div style={styles.formulaires}>
-                {genererFormulaires()}
-
-                <FormulaireVins key="vins" />
-            </div>
-
-            <button type="submit" onClick={handleSubmit} style={styles.button}>
-                Soumettre
-            </button>
-        </div>
-            </div>
-        </main>
-
-
-
-</>
+            <main>
+                <div>
+                    <Navbar />
+                    <div style={styles.container}>
+                        <div style={styles.formulaires}>
+                            {genererFormulaires()}
+                            <FormulaireVins key="vins" />
+                        </div>
+                        <button type="submit" onClick={handleSubmit} style={styles.button}>
+                            Soumettre
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </>
     );
 };
 
