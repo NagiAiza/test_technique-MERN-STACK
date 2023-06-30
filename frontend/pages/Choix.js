@@ -5,6 +5,7 @@ import Navbar from "./componenent/Navbar";
 import Head from "next/head";
 
 const Choix = () => {
+
     const { user } = useAuthContext(); // J'ai besoin de l'ID ici
     const router = useRouter();
     const { date, creneau, nombre } = router.query;
@@ -79,7 +80,7 @@ const Choix = () => {
         const bottlesData = plats
             .filter((plat) => plat.ordre === 4)
             .map((vin, index) => ({
-                vin: vin.title,
+                vin: vin._id,
                 quantity: nbVins[index] || 0,
             }));
 
