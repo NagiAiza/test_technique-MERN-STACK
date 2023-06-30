@@ -1,31 +1,30 @@
-const express = require('express')
+const express = require('express');
+const router = express.Router();
 const {
     getReservations,
     getReservationsUser,
     getReservation,
     createReservation,
-
-    checkLimit,
-
     deleteReservation,
-    updateReservation
-} = require('../controllers/reservationController')
+    checkLimit
+} = require('../controllers/reservationController');
 
-const router = express.Router()
+// Récupérer toutes les réservations
+router.get('/', getReservations);
 
-//get all reservation
-router.get('/', getReservations)
+// Récupérer les réservations d'un utilisateur spécifique
+router.get('/user/:id', getReservationsUser);
 
-//get all reservation from one user
-router.get('/user/:id', getReservationsUser)
+// Récupérer une réservation spécifique
+router.get('/:id', getReservation);
 
-//get one reservation
-router.get('/:id', getReservation)
+// Créer une nouvelle réservation
+router.post('/', createReservation);
 
-//post a new reservation
-router.post('/', createReservation)
+// Supprimer une réservation
+router.delete('/:id', deleteReservation);
 
-//delete a reservation
-router.delete('/:id', deleteReservation)
+// Vérifier la limite de réservations
+router.post('/checkLimit', checkLimit);
 
-module.exports = router
+module.exports = router;

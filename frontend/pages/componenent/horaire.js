@@ -10,27 +10,20 @@ const Reservation = ({ selectedDate }) => {
 
     const [reservationsCount, setReservationsCount] = useState(0);
     const timeSlots = ['Midi', 'Soir'];
+
     const handleTimeSlotClick = (timeSlot) => {
-
-       setSelectedTimeSlot(timeSlot);
-
-
-
-        };
-
-
+        setSelectedTimeSlot(timeSlot);
+    };
 
     const handleNombreChange = (e) => {
         const value = parseInt(e.target.value);
         setNombre(value);
     };
 
-
-
     const fetchReservationsCount = async () => {
         if (!selectedTimeSlot) {
             console.error('Veuillez sélectionner une plage horaire');
-            return; // Ne pas continuer si selectedTimeSlot n'est pas défini
+            return;
         }
 
         const data = {
@@ -63,14 +56,12 @@ const Reservation = ({ selectedDate }) => {
         }
     };
 
-
     const handleReserverClick = async () => {
-
         await fetchReservationsCount();
         try {
             router.push({
                 pathname: '/Choix',
-                query: {date: formattedDate, creneau: selectedTimeSlot, nombre: nombre},
+                query: { date: formattedDate, creneau: selectedTimeSlot, nombre: nombre },
             });
         } catch (error) {
             console.error('Erreur lors de l envoi des données de réservation:', error);
