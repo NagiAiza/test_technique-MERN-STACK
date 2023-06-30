@@ -37,15 +37,29 @@ const Navbar = () => {
                 >
                     Menu
                 </Menu.Item>
-                <Menu.Item
-                    name='Reserver'
-                    style={{color:"white"}}
+                {user && user.role === 'Admin' && (
+                    <Menu.Item
+                        name='Calendrier'
+                        style={{color:"white"}}
+                        href={"../calendrier"}
+                    >
+
+                        Calendrier
+                    </Menu.Item>
+
+                )}
+                {user && user.role === 'Customer' && (
+                    <Menu.Item
+                        name='Reserver'
+                        style={{color:"white"}}
 
 
-                    href={"../reserver"}
-                >
-                    Réserver
-                </Menu.Item>
+                        href={"../reserver"}
+                    >
+                        Réserver
+                    </Menu.Item>
+
+                )}
                 {!user && (
 
                 <Menu.Item
