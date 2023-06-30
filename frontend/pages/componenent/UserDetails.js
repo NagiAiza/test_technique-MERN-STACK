@@ -2,7 +2,6 @@ import { useAuthContext } from '../hooks/useAuthContext'
 import { useUsersContext } from "../hooks/useUsersContext";
 import { useRouter } from 'next/router';
 // date fns
-import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
 const UserDetails = ({ compte }) => {
     const { dispatch } = useUsersContext()
@@ -24,10 +23,32 @@ const UserDetails = ({ compte }) => {
         const json = await response.json()
         if (response.ok) {
             dispatch({ type: 'DELETE_USER', payload: json })
+            await deleteAssociatedReservations(compte._id);
         }
 
 
     }
+
+    const deleteAssociatedReservations = async (accountId) => {
+        const response = await fetch('/api/reservation');
+        const reservations = await response.json();
+        if (response.ok) {
+            const reservationsToDelete = reservations.filter(reservation => reservation.userId === accountId);
+            for (const reservation of reservationsToDelete) {
+                await fetch('/api/reservation/' + reservation._id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`
+                    }
+                });
+                // Handle success or update state accordingly
+            }
+        } else {
+            // Handle error case
+
+        }
+    }
+
     return (
         <>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
