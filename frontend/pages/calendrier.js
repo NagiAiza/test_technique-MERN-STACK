@@ -74,6 +74,13 @@ const Calendrier = () => {
                             };
                         });
 
+                        const selectedBottles = reservation.bottles.map((bottle) => {
+                            return {
+                                nom: getMealName(bottle.vin),
+                                quantite: bottle.quantity,
+                            };
+                        });
+
                         return (
                             <div style={{
                                 borderRadius: "20px",
@@ -99,6 +106,15 @@ const Calendrier = () => {
                                         <strong>Plat :</strong> {menu.plat}
                                         <br />
                                         <strong>Dessert :</strong> {menu.dessert}
+                                        <br />
+                                    </div>
+                                ))}
+                                <strong>Bouteilles choisies :</strong>
+                                {selectedBottles.map((bottle, index) => (
+                                    <div key={index}>
+                                        <strong>Nom :</strong> {bottle.nom}
+                                        <br />
+                                        <strong>Quantite :</strong> {bottle.quantite}
                                         <br />
                                     </div>
                                 ))}
