@@ -16,7 +16,7 @@ const EditReservation = () => {
     const [vins, setVins] = useState([]);
     const [nbVins, setNbVins] = useState([]);
 
-    const {editReservation , error, isLoading} = useEditReservation()
+    const {editReservation } = useEditReservation()
 
     useEffect(() => {
         if (nombre) {
