@@ -136,6 +136,7 @@ export default function Home() {
                                 {!changement && selectedMeal && selectedMeal._id === meal._id && (
                                     <div style={{ textAlign: 'center' }}>
                                         <p>{meal.description}</p>
+                                        <p>{meal.price}</p>
                                     </div>
                                 )}
                                 {user && user.role === "Admin" && (
