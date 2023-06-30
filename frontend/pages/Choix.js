@@ -1,21 +1,26 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useAuthContext } from "./hooks/useAuthContext"
+import { useAuthContext } from "./hooks/useAuthContext";
 
 const Choix = () => {
-    const {user} = useAuthContext()//il me faut l'id
+    const { user } = useAuthContext(); // Il me faut l'id
     const router = useRouter();
     const { date, creneau, nombre } = router.query;
 
     const [formulaires, setFormulaires] = useState([]);
     const [plats, setPlats] = useState([]);
+    const [vins, setVins] = useState([]);
+    const [nbVins, setNbVins] = useState([]);
 
     useEffect(() => {
         if (nombre) {
             const count = parseInt(nombre);
             const nouveauxFormulaires = Array(count)
                 .fill()
-                .map((_, index) => ({ id: index + 1, selection: { entree: '', plat: '', dessert: '' } }));
+                .map((_, index) => ({
+                    id: index + 1,
+                    selection: { entree: '', plat: '', dessert: '', vins: '', nbVins: 0 },
+                }));
             setFormulaires(nouveauxFormulaires);
         }
 
@@ -23,14 +28,15 @@ const Choix = () => {
             try {
                 const response = await fetch('/api/plat/meals');
                 const data = await response.json();
-                console.log(data)
                 setPlats(data);
             } catch (error) {
                 console.error('Erreur lors de la récupération des plats:', error);
             }
         };
 
+
         fetchPlats();
+
     }, [nombre]);
 
     const handleChange = (e, index, field) => {
@@ -49,7 +55,24 @@ const Choix = () => {
                     : formulaire
             )
         );
+
+        if (field === 'vins') {
+            setVins((prevVins) => {
+                const updatedVins = [...prevVins];
+                updatedVins[index - 1] = value;
+                return updatedVins;
+            });
+        }
+
+        if (field === 'nbVins') {
+            setNbVins((prevNbVins) => {
+                const updatedNbVins = [...prevNbVins];
+                updatedNbVins[index - 1] = parseInt(value); // Convertir en nombre entier
+                return updatedNbVins;
+            });
+        }
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -59,10 +82,14 @@ const Choix = () => {
             date: date, // Replace selectedDate with the actual selected date
             timeSlot: creneau, // Replace selectedTimeSlot with the actual selected time slot
             numberOfPeople: nombre, // Replace nombre with the actual number of people
-            menus: formulaires.map((formulaire) => formulaire.selection), // Extract the selection from each formulaire
-            totalPrice: 50
+            menus: formulaires.map((formulaire, index) => ({
+                ...formulaire.selection,
+                vins: vins[index],
+                nbVins: nbVins[index],
+            })),
+            totalPrice: 50,
         };
-        console.log(formData)
+
         try {
             const response = await fetch('/api/reservation', {
                 method: 'POST',
@@ -87,11 +114,45 @@ const Choix = () => {
         router.push('/');
     };
 
+    const FormulaireVins = ({ id }) => {
+        return (
+            <div style={styles.formulaire}>
+                <h3>{id}</h3>
+                <form style={{ display: 'inline-grid' }}>
+                    <label htmlFor={`vins-${id}`}>Vins:</label>
+                    <select
+                        id={`vins-${id}`}
+                        onChange={(e) => handleChange(e, id, 'vins')}
+                        style={styles.select}
+                    >
+                        <option value="">Sélectionnez un vin</option>
+                        {plats.filter((plat) => plat.ordre === 4).map((plat) => (
+                            <option key={plat._id} value={plat._id}>
+                                {plat.title}
+                            </option>
+                        ))}
+                    </select>
+
+                    <label htmlFor={`nbVins-${id}`}>Nombre de vins:</label>
+                    <input
+                        id={`nbVins-${id}`}
+                        onChange={(e) => handleChange(e, id, 'nbVins')}
+                        min={0}
+                        max={5}
+                        type="number"
+                        style={{ marginBottom: '10px' }}
+                        value={nbVins[id - 1] || ''} // Passer la valeur de nbVins
+                    />
+                </form>
+            </div>
+        );
+    };
+
     const genererFormulaires = () =>
         formulaires.map((formulaire) => (
             <div key={formulaire.id} style={styles.formulaire}>
                 <h3>{formulaire.id}</h3>
-                <form style={{ display: "inline-grid" }}>
+                <form style={{ display: 'inline-grid' }}>
                     <label htmlFor={`entree-${formulaire.id}`}>Entrée:</label>
                     <select
                         id={`entree-${formulaire.id}`}
@@ -142,7 +203,11 @@ const Choix = () => {
 
     return (
         <div style={styles.container}>
-            <div style={styles.formulaires}>{genererFormulaires()}</div>
+            <div style={styles.formulaires}>
+                {genererFormulaires()}
+                <FormulaireVins />
+            </div>
+
             <button type="submit" onClick={handleSubmit} style={styles.button}>
                 Soumettre
             </button>
