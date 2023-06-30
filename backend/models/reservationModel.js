@@ -41,7 +41,7 @@ const reservationSchema = new Schema({
             }
         }
     ],
-    bottles: {
+    bottles: [{
         vin: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Meal',
@@ -51,7 +51,7 @@ const reservationSchema = new Schema({
             type: Number,
             required: true
         }
-    },
+    }],
     totalPrice: {
         type: Number,
         required: true
