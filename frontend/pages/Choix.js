@@ -1,88 +1,156 @@
-import Head from 'next/head';
-import 'semantic-ui-css/semantic.min.css';
-import Navbar from "./componenent/Navbar";
-import { useState } from 'react';
-import 'react-calendar/dist/Calendar.css';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-export default function Home() {
-    const [nombre, setNombre] = useState(0); // État pour le nombre de formulaires à afficher
-    const [formulaires, setFormulaires] = useState([]); // État pour stocker les formulaires
+const Choix = () => {
+    const router = useRouter();
+    const { nombre } = router.query;
 
-    const handleChange = (e) => {
-        const value = parseInt(e.target.value);
-        setNombre(value); // Mettre à jour le nombre de formulaires à afficher
+    const [formulaires, setFormulaires] = useState([]);
+    const [plats, setPlats] = useState([]);
+
+    useEffect(() => {
+        if (nombre) {
+            const count = parseInt(nombre);
+            const nouveauxFormulaires = Array(count)
+                .fill()
+                .map((_, index) => ({ id: index + 1, selection: '' }));
+            setFormulaires(nouveauxFormulaires);
+        }
+
+        // Effectuez votre requête à la base de données pour récupérer les plats d'ordre 1
+        // et mettez à jour l'état "plats" avec les résultats de la requête
+        const fetchPlats = async () => {
+            try {
+                // Effectuez votre requête à la base de données ici
+                const response = await fetch('/api/plat/meals');
+                const data = await response.json();
+
+                // Mettez à jour l'état "plats" avec les données récupérées
+                setPlats(data);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des plats:', error);
+            }
+        };
+
+        fetchPlats();
+    }, [nombre]);
+
+    const handleChange = (e, index) => {
+        const value = e.target.value;
+
+        setFormulaires((prevFormulaires) =>
+            prevFormulaires.map((formulaire) =>
+                formulaire.id === index + 1 ? { ...formulaire, selection: value } : formulaire
+            )
+        );
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Générer les formulaires en fonction du nombre sélectionné
-        const nouveauxFormulaires = [];
-        for (let i = 0; i < nombre; i++) {
-            nouveauxFormulaires.push(
-                <div style={{backgroundColor: "#FFFFFF0F", margin:"1%", padding:"1%", borderRadius:"20px", textAlign:"center"}}>
-                <form  key={i}>
-                    <h3> {i+1} </h3>
 
-                    <label>Entrée:</label>
-                    <input
-                        type="entrée"
-                        onChange={(e) => setEmail(e.target.value)}
+        formulaires.forEach((formulaire) => {
+            console.log(`Formulaire ${formulaire.id}:`, formulaire);
+        });
 
-                    />
-                    <label>plat:</label>
-                    <input
-                        type="plat"
-                        onChange={(e) => setEmail(e.target.value)}
-
-                    />
-                    <label>vins:</label>
-                    <input
-                        type="vins"
-                        onChange={(e) => setEmail(e.target.value)}
-
-                    />
-                    <label>dessert:</label>
-                    <input
-                        type="dessert"
-                        onChange={(e) => setEmail(e.target.value)}
-
-                    />
-
-                </form>
-                </div>
-            );
-        }
-        setFormulaires(nouveauxFormulaires); // Mettre à jour les formulaires affichés
+        router.push('/');
     };
 
+    const genererFormulaires = () =>
+        formulaires.map((formulaire) => (
+            <div key={formulaire.id} style={styles.formulaire}>
+                <h3>{formulaire.id}</h3>
+                <form>
+                    <label htmlFor={`entree-${formulaire.id}`}> entrée : </label>
+                    <select
+                        id={`entree-${formulaire.id}`}
+                        onChange={(e) => handleChange(e, formulaire.id)}
+                        style={styles.select}
+                    >
+                        <option value="">Sélectionnez un plat</option>
+                        {plats.filter((plats) => plats.ordre === 1).map((plat) => (
+                            <option key={plat.id} value={plat.id}>
+                                {plat.title}
+                            </option>
+                        ))}
+                    </select>
+                    <label htmlFor={`entree-${formulaire.id}`}> Plat : </label>
+                    <select
+                        id={`entree-${formulaire.id}`}
+                        onChange={(e) => handleChange(e, formulaire.id)}
+                        style={styles.select}
+                    >
+                        <option value="">Sélectionnez un plat</option>
+                        {plats.filter((plats) => plats.ordre === 2).map((plat) => (
+                            <option key={plat.id} value={plat.id}>
+                                {plat.title}
+                            </option>
+                        ))}
+                    </select>
+                    <label htmlFor={`entree-${formulaire.id}`}> Dessert : </label>
+                    <select
+                        id={`entree-${formulaire.id}`}
+                        onChange={(e) => handleChange(e, formulaire.id)}
+                        style={styles.select}
+                    >
+                        <option value="">Sélectionnez un plat</option>
+                        {plats.filter((plats) => plats.ordre === 3).map((plat) => (
+                            <option key={plat.id} value={plat.id}>
+                                {plat.title}
+                            </option>
+                        ))}
+                    </select>
+                    <label htmlFor={`entree-${formulaire.id}`}> Vins : </label>
+                    <select
+                        id={`entree-${formulaire.id}`}
+                        onChange={(e) => handleChange(e, formulaire.id)}
+                        style={styles.select}
+                    >
+                        <option value="">Sélectionnez un plat</option>
+                        {plats.filter((plats) => plats.ordre === 4).map((plat) => (
+                            <option key={plat.id} value={plat.id}>
+                                {plat.title}
+                            </option>
+                        ))}
+                    </select>
+                </form>
+            </div>
+        ));
+
     return (
-        <>
-            <Head>
-                <title>Create Next App</title>
-                <meta name="description" content="Generated by create next app" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </Head>
-            <main>
-                <div>
-                    <Navbar />
-                    <div style={{ color: "white", textAlign: "center", alignItems:"center" }}>
-                        <h2>Combien êtes-vous ?</h2>
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                type="number"
-                                value={nombre}
-                                onChange={handleChange}
-                                max={5}
-                                min={0}
-                            />
-                            <button type="submit">Soumettre</button>
-                        </form>
-                        <div className="formulaire" >
-                        {formulaires } {/* Affiche les formulaires générés */}
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </>
+        <div style={styles.container}>
+            <div style={styles.formulaires}>{genererFormulaires()}</div>
+            <button type="submit" onClick={handleSubmit} style={styles.button}>
+                Soumettre
+            </button>
+        </div>
     );
-}
+};
+
+
+const styles = {
+    container: {
+        color: 'white',
+        textAlign: 'center',
+        alignItems: 'center',
+    },
+    button: {
+        marginTop: '10px',
+    },
+    formulaires: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    formulaire: {
+        backgroundColor: '#FFFFFF0F',
+        margin: '1%',
+        padding: '1%',
+        borderRadius: '20px',
+        textAlign: 'center',
+    },
+    select: {
+        width: '200px',
+    },
+};
+
+export default Choix;
