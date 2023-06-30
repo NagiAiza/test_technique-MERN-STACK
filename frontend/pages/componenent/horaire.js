@@ -4,10 +4,11 @@ import { useRouter } from 'next/router';
 
 
 
-const Reservation = () => {
+const Reservation = ({selectedDate}) => {
     const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
     const [nombre, setNombre] = useState(0);
     const router = useRouter();
+    const formattedDate = selectedDate.toISOString();
 
     const handleTimeSlotClick = (timeSlot) => {
         setSelectedTimeSlot(timeSlot);
@@ -21,7 +22,7 @@ const Reservation = () => {
     const handleReserverClick = () => {
         router.push({
             pathname: '/Choix',
-            query: { nombre: nombre, creneau: selectedTimeSlot },
+            query: { date: formattedDate, creneau: selectedTimeSlot, nombre: nombre },
         });
     };
     return (

@@ -53,7 +53,7 @@ export default function Home() {
                     {selectedDate && (
                         <div>
                         <p style={{ color: "white" }}>Vous avez sélectionné : {formatDate(selectedDate)}</p>
-                        <Reservation/>
+                        <Reservation selectedDate={selectedDate}/>
                             </div>
                     )}
                     </div>

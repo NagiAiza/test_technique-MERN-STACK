@@ -15,7 +15,7 @@ const reservationSchema = new Schema({
     },
     timeSlot: {
         type: String,
-        enum: ['midi', 'soir'],
+        enum: ['Midi', 'Soir'],
         required: true
     },
     numberOfPeople: {
@@ -41,18 +41,18 @@ const reservationSchema = new Schema({
             }
         }
     ],
-    bottles: [
-        {
-            name: {
-                type: String,
-                required: true
-            },
-            quantity: {
-                type: Number,
-                required: true
-            }
-        }
-    ],
+    // bottles: [
+    //     {
+    //         name: {
+    //             type: String,
+    //             required: true
+    //         },
+    //         quantity: {
+    //             type: Number,
+    //             required: true
+    //         }
+    //     }
+    // ],
     totalPrice: {
         type: Number,
         required: true

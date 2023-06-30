@@ -44,13 +44,14 @@ const getReservation = async (req, res) => {
 
 //create reservation
 const createReservation = async (req, res) => {
-    const { userId, date, timeSlot, numberOfPeople, menus, bottles, totalPrice} = req.body
+    const { userId, date, timeSlot, numberOfPeople, menus, totalPrice} = req.body
     // const user_id = req.user._id peut etre utiliser cette ligne?
-
+    console.log("ici")
     try{
-        const reservation = await Reservation.create({userId, date, timeSlot, numberOfPeople, menus, bottles, totalPrice})
+        const reservation = await Reservation.create({userId, date, timeSlot, numberOfPeople, menus, totalPrice})
         res.status(200).json(reservation)
     } catch (error) {
+        console.error('Error creating reservation:', error);
         res.status(400).json({ error: error.message })
     }
 }

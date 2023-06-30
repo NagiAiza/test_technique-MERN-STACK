@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useAuthContext } from "./hooks/useAuthContext"
 
 const Choix = () => {
+    const {user} = useAuthContext()//il me faut l'id
     const router = useRouter();
-    const { nombre } = router.query;
+    const { date, creneau, nombre } = router.query;
 
     const [formulaires, setFormulaires] = useState([]);
     const [plats, setPlats] = useState([]);
@@ -49,12 +51,38 @@ const Choix = () => {
         );
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        formulaires.forEach((formulaire) => {
-            console.log(`Formulaire ${formulaire.id}:`, formulaire.selection)
-        });
+        const formData = {
+            userId: user.id,
+            date: date, // Replace selectedDate with the actual selected date
+            timeSlot: creneau, // Replace selectedTimeSlot with the actual selected time slot
+            numberOfPeople: nombre, // Replace nombre with the actual number of people
+            menus: formulaires.map((formulaire) => formulaire.selection), // Extract the selection from each formulaire
+            totalPrice: 50
+        };
+        console.log(formData)
+        try {
+            const response = await fetch('/api/reservation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                console.log('Reservation data sent to MongoDB successfully');
+                // Handle success, such as displaying a success message or redirecting to a confirmation page
+            } else {
+                console.error('Failed to send reservation data to MongoDB');
+                // Handle failure, such as displaying an error message or retrying the request
+            }
+        } catch (error) {
+            console.error('Error while sending reservation data:', error);
+            // Handle error, such as displaying an error message or retrying the request
+        }
 
         router.push('/');
     };
