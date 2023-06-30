@@ -99,7 +99,7 @@ const checkLimit = async (req, res) => {
         });
     }
 };
-
+//
 const updateReservation = async (req, res) => {
     const { id } = req.params;
     const reservation = await Reservation.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });

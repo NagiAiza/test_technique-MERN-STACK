@@ -11,7 +11,7 @@ const {
 } = require('../controllers/reservationController')
 
 const router = express.Router()
-
+//
 //get all reservation
 router.get('/', getReservations)
 
