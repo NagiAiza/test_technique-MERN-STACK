@@ -1,11 +1,13 @@
 const express = require('express')
+
 const {
     getReservations,
     getReservationsUser,
     getReservation,
     createReservation,
     deleteReservation,
-    updateReservation
+    updateReservation,
+    checkLimit
 } = require('../controllers/reservationController')
 
 const router = express.Router()
@@ -24,6 +26,9 @@ router.post('/', createReservation)
 
 //delete a reservation
 router.delete('/:id', deleteReservation)
+
+// Vérifier la limite de réservations
+router.post('/checkLimit', checkLimit);
 
 //update a reservation
 router.patch('/:id', updateReservation)
