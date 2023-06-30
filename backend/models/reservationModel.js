@@ -41,18 +41,17 @@ const reservationSchema = new Schema({
             }
         }
     ],
-    // bottles: [
-    //     {
-    //         name: {
-    //             type: String,
-    //             required: true
-    //         },
-    //         quantity: {
-    //             type: Number,
-    //             required: true
-    //         }
-    //     }
-    // ],
+    bottles: {
+        vin: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Meal',
+            required: true
+        },
+        quantity: {
+            type: Number,
+            required: true
+        }
+    },
     totalPrice: {
         type: Number,
         required: true

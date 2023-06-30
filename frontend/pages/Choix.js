@@ -77,16 +77,18 @@ const Choix = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const bottlesData = formulaires.map((formulaire, index) => ({
+            vin: formulaire.selection.vins,
+            quantity: nbVins[index] || 0,
+        }));
+
         const formData = {
             userId: user.id,
             date: date, // Replace selectedDate with the actual selected date
             timeSlot: creneau, // Replace selectedTimeSlot with the actual selected time slot
             numberOfPeople: nombre, // Replace nombre with the actual number of people
-            menus: formulaires.map((formulaire, index) => ({
-                ...formulaire.selection,
-                vins: vins[index],
-                nbVins: nbVins[index],
-            })),
+            menus: formulaires.map((formulaire) => formulaire.selection), // Extract the selection from each formulaire
+            bottles: bottlesData,
             totalPrice: 50,
         };
 
