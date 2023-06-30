@@ -43,7 +43,7 @@ const Reservation = ({ selectedDate }) => {
             if (response.ok) {
                 const { reservationsCount } = await response.json();
                 setReservationsCount(reservationsCount);
-                if (reservationsCount > 5) {
+                if (reservationsCount >= 5) {
                     router.push({
                         pathname: '/',
                     });
