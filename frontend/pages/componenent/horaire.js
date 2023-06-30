@@ -21,7 +21,7 @@ const Reservation = () => {
     const handleReserverClick = () => {
         router.push({
             pathname: '/Choix',
-            query: { nombre: nombre },
+            query: { nombre: nombre, creneau: selectedTimeSlot },
         });
     };
     return (

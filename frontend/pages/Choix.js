@@ -13,19 +13,15 @@ const Choix = () => {
             const count = parseInt(nombre);
             const nouveauxFormulaires = Array(count)
                 .fill()
-                .map((_, index) => ({ id: index + 1, selection: '' }));
+                .map((_, index) => ({ id: index + 1, selection: { entree: '', plat: '', dessert: '' } }));
             setFormulaires(nouveauxFormulaires);
         }
 
-        // Effectuez votre requête à la base de données pour récupérer les plats d'ordre 1
-        // et mettez à jour l'état "plats" avec les résultats de la requête
         const fetchPlats = async () => {
             try {
-                // Effectuez votre requête à la base de données ici
                 const response = await fetch('/api/plat/meals');
                 const data = await response.json();
 
-                // Mettez à jour l'état "plats" avec les données récupérées
                 setPlats(data);
             } catch (error) {
                 console.error('Erreur lors de la récupération des plats:', error);
@@ -35,12 +31,12 @@ const Choix = () => {
         fetchPlats();
     }, [nombre]);
 
-    const handleChange = (e, index) => {
+    const handleChange = (e, index, field) => {
         const value = e.target.value;
 
         setFormulaires((prevFormulaires) =>
             prevFormulaires.map((formulaire) =>
-                formulaire.id === index + 1 ? { ...formulaire, selection: value } : formulaire
+                formulaire.id === index ? { ...formulaire, selection: { ...formulaire.selection, [field]: value } } : formulaire
             )
         );
     };
@@ -59,54 +55,46 @@ const Choix = () => {
         formulaires.map((formulaire) => (
             <div key={formulaire.id} style={styles.formulaire}>
                 <h3>{formulaire.id}</h3>
-                <form style={{display: "inline-grid"}} >
-                    <label htmlFor={`entree-${formulaire.id}`}> entrée : </label>
+                <form style={{ display: "inline-grid" }}>
+                    <label htmlFor={`entree-${formulaire.id}`}>Entrée:</label>
                     <select
                         id={`entree-${formulaire.id}`}
-                        onChange={(e) => handleChange(e, formulaire.id)}
+                        onChange={(e) => handleChange(e, formulaire.id, 'entree')}
                         style={styles.select}
+                        value={formulaire.selection.entree}
                     >
                         <option value="">Sélectionnez un plat</option>
-                        {plats.filter((plats) => plats.ordre === 1).map((plat) => (
+                        {plats.filter((plat) => plat.ordre === 1).map((plat) => (
                             <option key={plat.id} value={plat.id}>
                                 {plat.title}
                             </option>
                         ))}
                     </select>
-                    <label htmlFor={`entree-${formulaire.id}`}> Plat : </label>
+
+                    <label htmlFor={`plat-${formulaire.id}`}>Plat:</label>
                     <select
-                        id={`entree-${formulaire.id}`}
-                        onChange={(e) => handleChange(e, formulaire.id)}
+                        id={`plat-${formulaire.id}`}
+                        onChange={(e) => handleChange(e, formulaire.id, 'plat')}
                         style={styles.select}
+                        value={formulaire.selection.plat}
                     >
                         <option value="">Sélectionnez un plat</option>
-                        {plats.filter((plats) => plats.ordre === 2).map((plat) => (
+                        {plats.filter((plat) => plat.ordre === 2).map((plat) => (
                             <option key={plat.id} value={plat.id}>
                                 {plat.title}
                             </option>
                         ))}
                     </select>
-                    <label htmlFor={`entree-${formulaire.id}`}> Dessert : </label>
+
+                    <label htmlFor={`dessert-${formulaire.id}`}>Dessert:</label>
                     <select
-                        id={`entree-${formulaire.id}`}
-                        onChange={(e) => handleChange(e, formulaire.id)}
+                        id={`dessert-${formulaire.id}`}
+                        onChange={(e) => handleChange(e, formulaire.id, 'dessert')}
                         style={styles.select}
+                        value={formulaire.selection.dessert}
                     >
                         <option value="">Sélectionnez un plat</option>
-                        {plats.filter((plats) => plats.ordre === 3).map((plat) => (
-                            <option key={plat.id} value={plat.id}>
-                                {plat.title}
-                            </option>
-                        ))}
-                    </select>
-                    <label htmlFor={`entree-${formulaire.id}`}> Vins : </label>
-                    <select
-                        id={`entree-${formulaire.id}`}
-                        onChange={(e) => handleChange(e, formulaire.id)}
-                        style={styles.select}
-                    >
-                        <option value="">Sélectionnez un plat</option>
-                        {plats.filter((plats) => plats.ordre === 4).map((plat) => (
+                        {plats.filter((plat) => plat.ordre === 3).map((plat) => (
                             <option key={plat.id} value={plat.id}>
                                 {plat.title}
                             </option>
@@ -126,7 +114,6 @@ const Choix = () => {
     );
 };
 
-
 const styles = {
     container: {
         color: 'white',
@@ -139,7 +126,6 @@ const styles = {
         color: 'white',
         border: '1px solid #d4a713',
         padding: '10px',
-
         borderRadius: '5px',
         cursor: 'pointer',
         textDecoration: 'none',
