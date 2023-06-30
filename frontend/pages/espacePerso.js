@@ -31,10 +31,27 @@ const MonCompte = () => {
             }
 
         }
+
         if (user) {
             fetchUser()
         }
     }, [user])
+
+    const deleteReservation = async (reservationId) => {
+        const response = await fetch("/api/reservation/" + reservationId, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+
+        if (response.ok) {
+            // Remove the deleted reservation from the state
+            setReservationsData((prevData) =>
+                prevData.filter((reservation) => reservation._id !== reservationId)
+            );
+        }
+    };
 
     return (
         <>
@@ -100,8 +117,20 @@ const MonCompte = () => {
                 <ul>
                     {reservationsData.map((reservation) => (
                         <li key={reservation._id}>
-                            <p style={{textAlign:"center",color:"white"}}><strong>Date: </strong>{reservation?.date} <strong>Creneau: </strong>{reservation?.timeSlot} <strong>Nombre de personnes: </strong>{reservation?.numberOfPeople}</p>
-                            {/* Manque la modification des menus de la reservation */}
+                            <p style={{textAlign:"center",color:"white"}}><strong>Date: </strong>{reservation?.date}
+                                <strong>Creneau: </strong>{reservation?.timeSlot}
+                                <strong>Nombre de personnes: </strong>{reservation?.numberOfPeople}
+                                <a
+                                    style={{textAlign:"center",color:"white", textDecoration:"none"}}
+                                    href={`/editReservation`}
+                                >
+                                    Modifier la reservation
+                                </a>
+                                <button onClick={() => deleteReservation(reservation._id)}>
+                                    Supprimer la reservation
+                                </button>
+                            </p>
+
                         </li>
                     ))}
                 </ul>
