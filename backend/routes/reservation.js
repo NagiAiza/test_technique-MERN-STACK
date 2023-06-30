@@ -4,9 +4,6 @@ const {
     getReservationsUser,
     getReservation,
     createReservation,
-
-    checkLimit,
-
     deleteReservation,
     updateReservation
 } = require('../controllers/reservationController')
@@ -27,5 +24,8 @@ router.post('/', createReservation)
 
 //delete a reservation
 router.delete('/:id', deleteReservation)
+
+//update a reservation
+router.patch('/:id', updateReservation)
 
 module.exports = router
