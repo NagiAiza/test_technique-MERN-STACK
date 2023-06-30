@@ -27,4 +27,6 @@ router.post('/upload', uploadImage)
 
 router.patch('/:id', uploadUser)
 
+
+
 module.exports = router

@@ -1,6 +1,7 @@
 const Reservation = require('../models/reservationModel')
 const mongoose = require('mongoose')
 
+
 //get all reservation
 const getReservations = async (req, res) => {
     const reservations = await Reservation.find({}).sort({ date: -1})
@@ -72,10 +73,20 @@ const deleteReservation = async (req, res) => {
     res.status(200).json(reservation)
 }
 
+const updateReservation = async (req, res) => {
+    const { id } = req.params;
+    const reservation = await Reservation.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
+    if(!reservation){
+        res.status(400).json({ error: "No reservation found" })
+    }
+    res.status(200).json(reservation)
+}
+
 module.exports = {
     getReservations,
     getReservationsUser,
     getReservation,
     createReservation,
-    deleteReservation
+    deleteReservation,
+    updateReservation
 }

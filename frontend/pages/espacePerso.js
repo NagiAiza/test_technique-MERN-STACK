@@ -122,7 +122,7 @@ const MonCompte = () => {
                                 <strong>Nombre de personnes: </strong>{reservation?.numberOfPeople}
                                 <a
                                     style={{textAlign:"center",color:"white", textDecoration:"none"}}
-                                    href={`/editReservation`}
+                                    href={`/editReservation?id=${reservation._id}&nombre=${reservation.numberOfPeople}`}
                                 >
                                     Modifier la reservation
                                 </a>

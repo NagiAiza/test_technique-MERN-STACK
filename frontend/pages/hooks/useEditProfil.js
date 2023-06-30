@@ -18,14 +18,12 @@ export const useEditProfil = () => {
 
         try {
             if(image){
-                console.log('ici')
 
                 const response = await fetch("/api/user/upload", {
                     method: "POST",
                     body: formData,
                 });
                 const json = await response.json();
-                console.log('ici')
 
                 if (!response.ok) {
                     setIsLoading(false);
