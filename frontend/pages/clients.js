@@ -34,7 +34,17 @@ const Clients = () => {
         <div >
             <div >
                 {comptes && comptes.map(compte => (
+                    <div  style={{
+                            borderRadius: "20px",
+                            padding: "1%",
+                            margin:"1%",
+                            color:"white",
+                            backgroundColor:"#FFFFFF0F",
+                            width:"300px",
+                        }}
+                    >
                     <UserDetails compte={compte} key={compte._id} />
+                    </div>
                 ))}
             </div>
         </div>
