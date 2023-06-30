@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react"
 import { useAuthContext } from "./hooks/useAuthContext"
 import { Menu } from 'semantic-ui-react'
 import Head from "next/head";
+import { format } from "date-fns";
 
-
+// components
+import { fr } from 'date-fns/locale';
 
 
 const MonCompte = () => {
@@ -118,7 +120,10 @@ const MonCompte = () => {
                 <ul>
                     {reservationsData.map((reservation) => (
                         <li key={reservation._id}>
-                            <p style={{textAlign:"center",color:"white"}}><strong>Date: </strong>{reservation?.date}
+                            <p style={{textAlign:"center",color:"white"}}>
+                                <strong>Date: </strong>
+                                {format(new Date(reservation?.date), "EEEE, MMMM dd, yyyy", { locale: fr })}
+
                                 <br/>
                                 <strong>Creneau: </strong>{reservation?.timeSlot}
                                 <br/>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { useAuthContext } from "./hooks/useAuthContext"
-
+import { format } from "date-fns";
 // components
+import { fr } from 'date-fns/locale';
 
 const Calendrier = () => {
     const { user } = useAuthContext();
@@ -62,8 +63,8 @@ const Calendrier = () => {
                         const userName = user ? user.nom : '';
 
                         // Formater la date au format "YYYY-MM-DD"
-                        const reservationDate = new Date(reservation.date);
-                        const formattedDate = reservationDate.toISOString().slice(0, 10);
+                        const  formattedDate  = format(new Date(reservation?.date), "EEEE, MMMM dd, yyyy", { locale: fr });
+
 
                         // Récupérer les noms des entrées, plats et desserts choisis
                         const selectedMenus = reservation.menus.map((menu) => {
