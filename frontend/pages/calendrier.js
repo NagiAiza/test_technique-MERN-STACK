@@ -118,6 +118,8 @@ const Calendrier = () => {
                                         <br />
                                     </div>
                                 ))}
+                                <br />
+                                <strong>Prix :</strong> {reservation.totalPrice} €
                                 <br /><br />
                             </div>
                         );
