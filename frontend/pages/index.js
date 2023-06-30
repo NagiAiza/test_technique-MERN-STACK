@@ -2,11 +2,14 @@ import Head from 'next/head'
 import 'semantic-ui-css/semantic.min.css'
 import Navbar from "./componenent/Navbar.js"
 import Section from "./componenent/section.js"
+import { useAuthContext } from "./hooks/useAuthContext"
+
 
 
 
 
 export default function Home() {
+    const { user } = useAuthContext()
     return (
         <>
             <Head>
@@ -19,7 +22,15 @@ export default function Home() {
                     <Navbar/>
                     <div className="Fond">
                         <button style={{marginBottom:"10px", marginTop:"20px",fontFamily:"Whisper", fontSize:"30px", color:"white", backgroundColor:"transparent", borderStyle:"none", padding:"15px", borderTop:"solid white", borderBottom:"solid white",}}>
-                        <a  href={"./reserver"} style={{color:"white"}}>   Faire une réservation </a>
+                            {user && user.role === 'Customer' && (
+                                <a  href={"./reserver"} style={{color:"white"}}>   Faire une réservation </a>
+                            )}
+                            {user && user.role === 'Admin' && (
+                                <a  href={"./calendrier"} style={{color:"white"}}>   Voir la liste des réservations </a>
+                            )}
+                            {!user && (
+                                <a  href={"./Login"} style={{color:"white"}}>  Se connecter </a>
+                            )}
                         </button>
                         <hr style={{marginBottom:"10px", marginRight:'47%', marginLeft:"47%"}}/>
                     </div>
