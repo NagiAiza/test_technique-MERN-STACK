@@ -73,13 +73,46 @@ const Choix = () => {
         }
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Calculate total price
+        let totalPrice = 0;
+        formulaires.forEach((formulaire) => {
+            const { entree, plat, dessert } = formulaire.selection;
+
+            const selectedEntree = plats.find((p) => p._id === entree);
+            if (selectedEntree) {
+                totalPrice += selectedEntree.price;
+            }
+
+            const selectedPlat = plats.find((p) => p._id === plat);
+            if (selectedPlat) {
+                totalPrice += selectedPlat.price;
+            }
+
+            const selectedDessert = plats.find((p) => p._id === dessert);
+            if (selectedDessert) {
+                totalPrice += selectedDessert.price;
+            }
+        });
+
+        let totalBottlePrice = 0; // Initialisation du prix total des bouteilles à 0
+
+        plats
+            .filter((plat) => plat.ordre === 4)
+            .forEach((vin, index) => {
+                const quantity = nbVins[index] || 0; // Récupération de la quantité de la bouteille
+                totalBottlePrice += vin.price * quantity; // Ajout du prix total de chaque bouteille (prix * quantité)
+            });
+
+        totalPrice += totalBottlePrice;//il faudrait afficher le prix a cote du bouton soummetre
 
         const bottlesData = plats
             .filter((plat) => plat.ordre === 4)
             .map((vin, index) => ({
-                vin: vin.title,
+                vin: vin._id,
                 quantity: nbVins[index] || 0,
             }));
 
@@ -90,7 +123,7 @@ const Choix = () => {
             numberOfPeople: nombre, // Remplacez nombre par le nombre réel de personnes
             menus: formulaires.map((formulaire) => formulaire.selection), // Extrait la sélection de chaque formulaire
             bottles: bottlesData,
-            totalPrice: 50,
+            totalPrice: totalPrice,
         };
 
         try {
