@@ -116,40 +116,31 @@ const Choix = () => {
         router.push('/');
     };
 
-    const FormulaireVins = ({ id }) => {
+    const FormulaireVins = () => {
         return (
             <div style={styles.formulaire}>
-                <h3>{id}</h3>
-                <form style={{ display: 'inline-grid' }}>
-                    <label htmlFor={`vins-${id}`}>Vins:</label>
-                    <select
-                        id={`vins-${id}`}
-                        onChange={(e) => handleChange(e, id, 'vins')}
-                        style={styles.select}
-                    >
-                        <option value="">Sélectionnez un vin</option>
-                        {plats.filter((plat) => plat.ordre === 4).map((plat) => (
-                            <option key={plat._id} value={plat._id}>
-                                {plat.title}
-                            </option>
-                        ))}
-                    </select>
+                <h3>Vins</h3>
+                {plats.filter((plat) => plat.ordre === 4).map((vin, index) => (
+                    <div style={{margin:"30px"}}>
+                    <form key={vin._id} style={{ display: 'inline-grid' }}>
+                        <h2>{vin.title}</h2>
 
-                    <label htmlFor={`nbVins-${id}`}>Nombre de vins:</label>
-                    <input
-                        id={`nbVins-${id}`}
-                        onChange={(e) => handleChange(e, id, 'nbVins')}
-                        min={0}
-                        max={5}
-                        type="number"
-                        style={{ marginBottom: '10px' }}
-                        value={nbVins[id - 1] || ''} // Passer la valeur de nbVins
-                    />
-                </form>
+                        <label htmlFor={`nbVins-${index}`}>Nombre de vins :</label>
+                        <input
+                            id={`nbVins-${index}`}
+                            onChange={(e) => handleChange(e, index + 1, 'nbVins')}
+                            min={0}
+                            max={5}
+                            type="number"
+                            style={{ marginBottom: '10px' }}
+                            value={nbVins[index] || ''}
+                        />
+                    </form>
+                    </div>
+                ))}
             </div>
         );
     };
-
     const genererFormulaires = () =>
         formulaires.map((formulaire) => (
             <div key={formulaire.id} style={styles.formulaire}>
@@ -207,7 +198,8 @@ const Choix = () => {
         <div style={styles.container}>
             <div style={styles.formulaires}>
                 {genererFormulaires()}
-                <FormulaireVins />
+
+                <FormulaireVins key="vins" />
             </div>
 
             <button type="submit" onClick={handleSubmit} style={styles.button}>
