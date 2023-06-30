@@ -119,11 +119,11 @@ const Choix = () => {
     const FormulaireVins = () => {
         return (
             <div style={styles.formulaire}>
-                <h3>Vins</h3>
+                <h1>Vins</h1>
                 {plats.filter((plat) => plat.ordre === 4).map((vin, index) => (
                     <div style={{margin:"30px"}}>
                     <form key={vin._id} style={{ display: 'inline-grid' }}>
-                        <h2>{vin.title}</h2>
+                        <h3>{vin.title}</h3>
 
                         <label htmlFor={`nbVins-${index}`}>Nombre de vins :</label>
                         <input
