@@ -120,6 +120,13 @@ export default function Home() {
                                             value={changement.description}
                                             onChange={(e) => setChangement({ ...changement, description: e.target.value })}
                                         />
+                                        <label>price :</label>
+                                        <input
+                                            style={{marginLeft:"10%", maxWidth:"80%",  justifyContent: "center", alignItems: "center", textAlign:"center"}}
+                                            type="number"
+                                            value={changement.price}
+                                            onChange={(e) => setChangement({ ...changement, price: e.target.value })}
+                                        />
                                         <button    style={{marginLeft:"10%", maxWidth:"80%",  justifyContent: "center", alignItems: "center", textAlign:"center"}} type="submit">Modifier</button>
                                     </form>
                                 )}
