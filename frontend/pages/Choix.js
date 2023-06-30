@@ -21,7 +21,7 @@ const Choix = () => {
             try {
                 const response = await fetch('/api/plat/meals');
                 const data = await response.json();
-
+                console.log(data)
                 setPlats(data);
             } catch (error) {
                 console.error('Erreur lors de la récupération des plats:', error);
@@ -36,7 +36,15 @@ const Choix = () => {
 
         setFormulaires((prevFormulaires) =>
             prevFormulaires.map((formulaire) =>
-                formulaire.id === index ? { ...formulaire, selection: { ...formulaire.selection, [field]: value } } : formulaire
+                formulaire.id === index
+                    ? {
+                        ...formulaire,
+                        selection: {
+                            ...formulaire.selection,
+                            [field]: value,
+                        },
+                    }
+                    : formulaire
             )
         );
     };
@@ -45,7 +53,7 @@ const Choix = () => {
         e.preventDefault();
 
         formulaires.forEach((formulaire) => {
-            console.log(`Formulaire ${formulaire.id}:`, formulaire);
+            console.log(`Formulaire ${formulaire.id}:`, formulaire.selection)
         });
 
         router.push('/');
@@ -65,7 +73,7 @@ const Choix = () => {
                     >
                         <option value="">Sélectionnez un plat</option>
                         {plats.filter((plat) => plat.ordre === 1).map((plat) => (
-                            <option key={plat.id} value={plat.id}>
+                            <option key={plat._id} value={plat._id}>
                                 {plat.title}
                             </option>
                         ))}
@@ -80,7 +88,7 @@ const Choix = () => {
                     >
                         <option value="">Sélectionnez un plat</option>
                         {plats.filter((plat) => plat.ordre === 2).map((plat) => (
-                            <option key={plat.id} value={plat.id}>
+                            <option key={plat._id} value={plat._id}>
                                 {plat.title}
                             </option>
                         ))}
@@ -95,7 +103,7 @@ const Choix = () => {
                     >
                         <option value="">Sélectionnez un plat</option>
                         {plats.filter((plat) => plat.ordre === 3).map((plat) => (
-                            <option key={plat.id} value={plat.id}>
+                            <option key={plat._id} value={plat._id}>
                                 {plat.title}
                             </option>
                         ))}
